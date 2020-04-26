@@ -1,4 +1,5 @@
 #ifndef ATTACKS
+#include "entities.h"
 #define ATTACKS
 class base_atk{
 public:
@@ -8,8 +9,8 @@ public:
     if not it'll get the damage within the range
     and increase it by 10% per level of the entity
     using it, truncated to the nearest integer*/
-    int calculateDmg(entity target){
-        if(missAttack()) return 0;
+    int calculateDmg(entity target, entity opponent){
+        if(missAttack(opponent)) return 0;
         float multiplier = 1 + (0.1 * target.getLvl());
         return getDmg() * multiplier;
     }
@@ -19,9 +20,9 @@ protected:
     int missChance;
 
     //This just tests if the attack has missed
-    bool missAttack(){
+    bool missAttack(entity opponent){
         int random = (std::rand() % 100);
-        if (random > missChance) return 0;
+        if (random > missChance + opponent.getEvasiveness()) return 0;
         return 1;
     }
 

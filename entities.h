@@ -8,17 +8,20 @@ public:
     inline int getHp(){ return hp; }
     inline int getMaxHp() { return maxhp; }
     inline int getLvl() { return lvl; }
+    inline int getEvasiveness() { return evasiveness; }
 
 protected:
 
     int maxhp;
     int hp;
     int lvl;
+    int evasiveness;
 };
 
 //The class that defines the player
 class playableCharacter : public entity{
 public:
+    inline std::string getAttack() { return attack; }
     void setName(std::string name){
         this->name = name;
     }
@@ -36,17 +39,18 @@ public:
     /*The playable character constructor
     sets all of the values required by the
     entity class, which can be found above.*/
-    playableCharacter(){
+    playableCharacter(int hp, int evasiveness, std::string attack){
         this -> exp = 0;
-        this -> evasiveness = 5;
-        this -> maxhp = 100;
-        this -> hp = 100;
+        this -> evasiveness = evasiveness;
+        this -> maxhp = hp;
+        this -> hp = hp;
         this -> lvl = 1;
+        this -> attack = attack;
     }
 private:
+    std::string attack;
     std::string name;
     int exp;
-    int evasiveness;
 };
 
 class enemy : public entity{
@@ -54,20 +58,22 @@ public:
     /*The enemy constructor sets all of the values required
     by the entity class, which can be found above. It can also
     use the appearance message*/
-    enemy(std::string type, int hp, int lvl, bool doAppearance){
+    enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearance){
         this -> type = type;
         this -> maxhp = hp;
         this -> hp = hp;
         this -> lvl = lvl;
+        this -> evasiveness = evasiveness;
         if(doAppearance) appearanceMessage();
     }
 
     //Same thing as above but without doAppearance
-    enemy(std::string type, int hp, int lvl){
+    enemy(std::string type, int hp, int lvl, int evasiveness){
         this -> type = type;
         this -> maxhp = hp;
         this -> hp = hp;
         this -> lvl = lvl;
+        this -> evasiveness = evasiveness;
     }
 
 
