@@ -1,15 +1,7 @@
 #define WINDOWS
 //#define LINUX
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <cstdlib>
-#include "OSdependent.h"
-#include "attacks.h"
-#include "entities.h"
-#include "interface.h"
-#include "gameFunctions.h"
+#include "common.h"
 
 int main(){
     std::srand((int) std::time(0));

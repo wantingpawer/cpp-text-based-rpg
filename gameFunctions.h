@@ -31,7 +31,7 @@ playableCharacter start(interface ui){
         case 2:
             hp = 150;
             evasiveness = 1;
-            attack = "Crushing strike";
+            attack = "Crushing_strike";
             break;
 
         case 3:
