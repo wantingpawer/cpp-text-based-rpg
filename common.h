@@ -5,6 +5,8 @@
 #include <string>
 #include <ctime>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
 #include "classDefinitions.h"
 #include "OSdependent.h"
 #include "entities.h"
