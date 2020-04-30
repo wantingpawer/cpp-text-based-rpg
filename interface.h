@@ -3,7 +3,7 @@
 
 
     //When run, this'll start the attack sequence
-void interface::startAttack(playableCharacter player, enemy opponent){
+int interface::startAttack(playableCharacter player, enemy opponent){
 
     bool escaped = false;
     std::cout << "=== A BATTLE HAST BEGUN ===\n" <<
@@ -36,15 +36,14 @@ void interface::startAttack(playableCharacter player, enemy opponent){
     the appropriate thing */
     if(escaped) {
         std::cout << "You successfully fled!" << std::endl;
-    }else{
-        std::string winner;
-        if(player.getHp() <= 0){
-            winner = opponent.getType();
-        }else{
-            winner = "You";
-        }
-        std::cout << winner << " won the battle!" << std::endl;
+        clearScreen();
+        return 2;
     }
+    int won;
+    player.getHp() <= 0 ? won = 0 : won = 1;
+    std::cout << (won ? "You" : opponent.getType()) << " won the battle!" << std::endl;
+    clearScreen();
+    return won;
 }
 
 //This function is just here so that it's cleaner to display the health of entities

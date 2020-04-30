@@ -61,7 +61,7 @@ private:
 
 class interface{
 public:
-    void startAttack(playableCharacter player, enemy opponent);
+    int startAttack(playableCharacter player, enemy opponent);
     inline std::string displayHealth(entity target);
 
 private:

@@ -41,6 +41,10 @@ playableCharacter start(interface ui){
             evasiveness = 10;
             attack = "Fireball";
             break;
+
+        default:
+            std::cout << "Something went wrong! Ending process" << std::endl;
+            exit(-1);
     }
 
     playableCharacter player(hp, evasiveness, attack);
@@ -55,7 +59,7 @@ playableCharacter start(interface ui){
 }
 
 int classSelection(){
-    std::cout << "\nSelect a class:\n"
+    std::cout << "Select a class:\n"
           << "1) Archer\n"
           << "2) Knight\n"
           << "3) Mage\n"
@@ -66,12 +70,13 @@ int classSelection(){
     if(choice > 3 || choice < 1) {
         std::cout << "Invalid selection!" << std::endl;
         clearScreen();
-        classSelection();
+        choice = classSelection();
     }
 
     return choice;
 }
 
+//The view stats function just allows the user to see their stats
 void viewStats(playableCharacter player, interface ui){
     std::cout << "Your HP is " << ui.displayHealth(player)
               << "\nYour evasiveness is " << player.getEvasiveness()
@@ -79,6 +84,7 @@ void viewStats(playableCharacter player, interface ui){
     clearScreen();
 }
 
+//Playersay and sleep are just here to make the code look cleaner
 inline void playerSay(playableCharacter player, std::string msg){
     std::cout << player.getName() << ": " << msg << std::endl;
 }
@@ -96,17 +102,51 @@ void beginning(interface ui, playableCharacter player){
     std::cout << "Mysterious Ominous Voice: I'm a mysterious ominous voice, not a GPS!" << std::endl;
     sleep(2);
     std::cout << "Mysterious Ominous Voice: Buuut... I'm a mysterious ominous voice with" <<
-                 " a vision. You're currently in a training room, to prepare you for battle!" << std::endl;
+                 " vision. You're currently in a training room, to prepare you for battle!" << std::endl;
     sleep(3);
     playerSay(player, "Battle? What do you mean battle!");
     sleep(2);
-    std::cout << "Mysterious Ominous Voice: Oh yeah, we were in a rush to kidnap you, forgot to explain!\n"
+    std::cout << "Mysterious Ominous Voice: Oh yeah, we were in a rush to kidnap you, forgot to explain! "
               << "Basically, something something grand adventure something something dragon." << std::endl;
-    sleep(5);
+    sleep(3);
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
+    sleep(1);
     std::cout << "Mysterious Ominous Voice: Let's not dwell on past events. Here's a living test dummy"
               << " for you to fight with!\n" << std::endl;
+    sleep(2);
     enemy dummy("Test Dummy", 10, 0, 0, true);
-    ui.startAttack(player, dummy);
+    int won = ui.startAttack(player, dummy);
+    switch(won){
+    case 0:
+        std::cout << "Mysterious Ominous Voice: Well... let's pretend that didn't happen!" << std::endl;
+        clearScreen();
+        beginning(ui, player);
+        break;
+    case 1:
+        std::cout << "Mysterious Ominous Voice: Congratulations! You won! Time for the dragon!" << std::endl;
+        break;
+    case 2:
+        std::cout << "Mysterious Ominous Voice: Wow what a brave warrior, running away like that." <<
+                    " Try running from the dragon. See where that gets you."<< std::endl;
+        break;
+    default:
+        std::cout << "Mysterious Ominous Voice: You find yourself in a strange place..." << std::endl;
+        beginning(ui, player);
+    }
+    sleep(2);
+    playerSay(player, "What the hell is going on with this dragon thing?");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: Don't you worry about that!" <<
+                 "We'll cross that bridge when we get there." << std::endl;
+    sleep(1);
+    playerSay(player, "For God's sake! First there's a dragon now there's a bridge?");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: God, someone isn't happy! Just wait till we get to the clowns"
+              << std::endl;
+    sleep(1);
+    playerSay(player, "THERE ARE CLOWNS TOO!?");
+    std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
+    enemy clown("clown", 10000, 500, 100, true);
+    ui.startAttack(player, clown);
 }
 #endif // GAMEFUNCTIONS
