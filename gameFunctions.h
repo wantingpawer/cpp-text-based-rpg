@@ -110,7 +110,7 @@ void beginning(interface ui, playableCharacter player){
               << "Basically, something something grand adventure something something dragon." << std::endl;
     sleep(3);
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
-    sleep(1);
+    sleep(2);
     std::cout << "Mysterious Ominous Voice: Let's not dwell on past events. Here's a living test dummy"
               << " for you to fight with!\n" << std::endl;
     sleep(2);
@@ -137,7 +137,7 @@ void beginning(interface ui, playableCharacter player){
     playerSay(player, "What the hell is going on with this dragon thing?");
     sleep(2);
     std::cout << "Mysterious Ominous Voice: Don't you worry about that!" <<
-                 "We'll cross that bridge when we get there." << std::endl;
+                 " We'll cross that bridge when we get there." << std::endl;
     sleep(1);
     playerSay(player, "For God's sake! First there's a dragon now there's a bridge?");
     sleep(2);
@@ -145,8 +145,10 @@ void beginning(interface ui, playableCharacter player){
               << std::endl;
     sleep(1);
     playerSay(player, "THERE ARE CLOWNS TOO!?");
+    sleep(2);
     std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
     enemy clown("clown", 10000, 500, 100, true);
     ui.startAttack(player, clown);
+    displayMap(1);
 }
 #endif // GAMEFUNCTIONS
