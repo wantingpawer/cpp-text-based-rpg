@@ -1,6 +1,6 @@
 #ifndef GAMEFUNCTIONS
 #define GAMEFUNCTIONS
-
+#include "entities.h"
 int classSelection();
 void viewStats(playableCharacter player, interface ui);
 
@@ -149,6 +149,6 @@ void beginning(interface ui, playableCharacter player){
     std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
     enemy clown("clown", 10000, 500, 100, true);
     ui.startAttack(player, clown);
-    displayMap(1);
+    //displayMap(1);
 }
 #endif // GAMEFUNCTIONS
