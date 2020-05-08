@@ -31,7 +31,7 @@ void clearScreen(){
 
     #endif // LINUX
 }
-/*
+
 void displayMap(int level){
     std::array<std::string, 10> map;
     int playerX, playerY;
@@ -63,33 +63,33 @@ void displayMap(int level){
             std::cout << map[i] << std::endl;
         }
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
-            if(map[playerX][playerY + 1] == static_cast<std::string>("#")) continue;
-            if(map[playerX][playerY + 1] == static_cast<std::string>("X")) {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerX][playerY] = " ";
-            map[playerX][++playerY] = "O";
+            if(map[playerX][playerY + 1] == '#') continue;
+            if(map[playerX][playerY + 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerX][playerY] = ' ';
+            map[playerX][++playerY] = 'O';
         }
         if(GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x44)){
-            if(map[playerX + 1][playerY] == static_cast<std::string>("#")) continue;
-            if(map[playerX + 1][playerY] == static_cast<std::string>("X")) {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerX][playerY] = " ";
-            map[++playerX][playerY] = "O";
+            if(map[playerX + 1][playerY] == '#') continue;
+            if(map[playerX + 1][playerY] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerX][playerY] = ' ';
+            map[++playerX][playerY] = 'O';
         }
         if(GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(0x53)){
-            if(map[playerX][playerY - 1] == static_cast<std::string>("#")) continue;
-            if(map[playerX][playerY - 1] == static_cast<std::string>("X")) {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerX][playerY] = " ";
-            map[playerX][--playerY] = "O";
+            if(map[playerX][playerY - 1] == '#') continue;
+            if(map[playerX][playerY - 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerX][playerY] = ' ';
+            map[playerX][--playerY] = 'O';
         }
         if(GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x41)){
-            if(map[playerX - 1][playerY] == static_cast<std::string>("#")) continue;
-            if(map[playerX - 1][playerY] == static_cast<std::string>("X")) {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerX][playerY] = " ";
-            map[--playerX][playerY] = "O";
+            if(map[playerX - 1][playerY] == '#') continue;
+            if(map[playerX - 1][playerY] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerX][playerY] = ' ';
+            map[--playerX][playerY] = 'O';
         }
     }
 
     //#endif // WINDOWS
-}*/
+}
 
 #endif // OSDEPENDENT
 
