@@ -1,9 +1,13 @@
-#ifndef INTERFACE
-#define INTERFACE
+#ifndef GAMEINTERFACE
+#define GAMEINTERFACE
 
+//This function is just here so that it's cleaner to display the health of entities
+std::string gameInterface::displayHealth(entity target){
+    return std::to_string(target.getHp()) + "/" + std::to_string(target.getMaxHp());
+}
 
     //When run, this'll start the attack sequence
-int interface::startAttack(playableCharacter player, enemy opponent){
+int gameInterface::startAttack(playableCharacter player, enemy opponent){
 
     bool escaped = false;
     std::cout << "=== A BATTLE HAST BEGUN ===\n" <<
@@ -46,12 +50,7 @@ int interface::startAttack(playableCharacter player, enemy opponent){
     return won;
 }
 
-//This function is just here so that it's cleaner to display the health of entities
-std::string interface::displayHealth(entity target){
-    return std::to_string(target.getHp()) + "/" + std::to_string(target.getMaxHp());
-}
-
-int interface::playerAttack(playableCharacter player, enemy opponent){
+int gameInterface::playerAttack(playableCharacter player, enemy opponent){
     int choice;
     int dmg = 0;
     std::cout << "Choose an action:\n" << "1) " << player.getAttack() << "\n2) Run" << std::endl;
@@ -69,11 +68,11 @@ int interface::playerAttack(playableCharacter player, enemy opponent){
 
 /*As there is no choice this is a separate function that doesn't have a choice and just
 calculates the damage done*/
-interface::opponentAttack(enemy opponent, playableCharacter player){
+int gameInterface::opponentAttack(enemy opponent, playableCharacter player){
     int dmg = opponent.fight.calculateDmg(&opponent, &player);
     std::cout << opponent.getType() << " dealt " << dmg << " damage to you!\n" << std::endl;
     return dmg;
 }
 
 
-#endif // INTERFACE
+#endif // GAMEINTERFACE

@@ -6,7 +6,7 @@
 int main(){
 
     //creates an object of the UI and the player
-    interface ui; //interface.h
+    gameInterface ui; //interface.h
 
     //This sets up the game, ready for it to be played
     playableCharacter player = start(ui);

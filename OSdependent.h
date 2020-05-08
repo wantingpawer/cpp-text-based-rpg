@@ -51,6 +51,7 @@ void displayMap(int level){
             break;
 
     }
+<<<<<<< Updated upstream
     std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
     bool running = true;
     std::string newMap = map[playerX];
@@ -89,6 +90,46 @@ void displayMap(int level){
     }
 
     //#endif // WINDOWS
+=======
+    bool running = true;
+    #ifdef WINDOWS
+
+    while(running == true){
+        system("CLS");
+        for(int i = 0; i < 10; i++){
+            std::cout << map[i] << std::endl;
+        }
+        std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
+        system("PAUSE > NUL");
+
+        if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
+            if(map[playerY - 1][playerX] == '#') continue;
+            if(map[playerY - 1][playerX] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerY][playerX] = ' ';
+            map[--playerY][playerX] = 'O';
+        }
+        if(GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x44)){
+            if(map[playerY][playerX + 1] == '#') continue;
+            if(map[playerY][playerX + 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerY][playerX] = ' ';
+            map[playerY][++playerX] = 'O';
+        }
+        if(GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(0x53)){
+            if(map[playerY + 1][playerX] == '#') continue;
+            if(map[playerY + 1][playerX] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerY][playerX] = ' ';
+            map[++playerY][playerX] = 'O';
+        }
+        if(GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41)){
+            if(map[playerY][playerX - 1] == '#') continue;
+            if(map[playerY][playerX - 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
+            map[playerY][playerX] = ' ';
+            map[playerY][--playerX] = 'O';
+        }
+    }
+
+    #endif // WINDOWS
+>>>>>>> Stashed changes
 }
 
 #endif // OSDEPENDENT

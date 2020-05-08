@@ -2,9 +2,9 @@
 #define GAMEFUNCTIONS
 #include "entities.h"
 int classSelection();
-void viewStats(playableCharacter player, interface ui);
+void viewStats(playableCharacter player, gameInterface ui);
 
-playableCharacter start(interface ui){
+playableCharacter start(gameInterface ui){
 
     std::srand((int) std::time(0));
 
@@ -77,7 +77,7 @@ int classSelection(){
 }
 
 //The view stats function just allows the user to see their stats
-void viewStats(playableCharacter player, interface ui){
+void viewStats(playableCharacter player, gameInterface ui){
     std::cout << "Your HP is " << ui.displayHealth(player)
               << "\nYour evasiveness is " << player.getEvasiveness()
               << "\nYour attack is " << player.getAttack() << std::endl;
@@ -94,7 +94,7 @@ inline void sleep(int duration){
     std::this_thread::sleep_for(wait);
 }
 
-void beginning(interface ui, playableCharacter player){
+void beginning(gameInterface ui, playableCharacter player){
     std::cout << "..." << std::endl;
     sleep(3);
     playerSay(player, "Where am I?");
@@ -136,8 +136,13 @@ void beginning(interface ui, playableCharacter player){
     sleep(2);
     playerSay(player, "What the hell is going on with this dragon thing?");
     sleep(2);
+<<<<<<< Updated upstream
     std::cout << "Mysterious Ominous Voice: Don't you worry about that!" <<
                  " We'll cross that bridge when we get there." << std::endl;
+=======
+    std::cout << "Mysterious Ominous Voice: Don't you worry about that! " <<
+                 "We'll cross that bridge when we get there." << std::endl;
+>>>>>>> Stashed changes
     sleep(1);
     playerSay(player, "For God's sake! First there's a dragon now there's a bridge?");
     sleep(2);
@@ -149,6 +154,10 @@ void beginning(interface ui, playableCharacter player){
     std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
     enemy clown("clown", 10000, 500, 100, true);
     ui.startAttack(player, clown);
+<<<<<<< Updated upstream
     //displayMap(1);
+=======
+    displayMap(1);
+>>>>>>> Stashed changes
 }
 #endif // GAMEFUNCTIONS

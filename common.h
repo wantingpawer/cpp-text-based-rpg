@@ -7,7 +7,13 @@
 #include <cstdlib>
 #include <chrono>
 #include <thread>
+<<<<<<< Updated upstream
 #include <array>
+=======
+#ifdef WINDOWS
+#include "windows.h"
+#endif // WINDOWS
+>>>>>>> Stashed changes
 #include "classDefinitions.h"
 #include "OSdependent.h"
 #include "interface.h"
