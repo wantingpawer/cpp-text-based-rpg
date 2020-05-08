@@ -53,9 +53,6 @@ void displayMap(int level){
     }
     std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
     bool running = true;
-    std::string newMap = map[playerX];
-    std::cout << newMap << std::endl;
-    std::cout << newMap[playerY] << std::endl;
     #ifdef WINDOWS
 
     while(running == true){
