@@ -1,10 +1,10 @@
 #ifndef GAMEFUNCTIONS
 #define GAMEFUNCTIONS
-
+#include "entities.h"
 int classSelection();
-void viewStats(playableCharacter player, interface ui);
+void viewStats(playableCharacter player, gameInterface ui);
 
-playableCharacter start(interface ui){
+playableCharacter start(gameInterface ui){
 
     std::srand((int) std::time(0));
 
@@ -77,7 +77,7 @@ int classSelection(){
 }
 
 //The view stats function just allows the user to see their stats
-void viewStats(playableCharacter player, interface ui){
+void viewStats(playableCharacter player, gameInterface ui){
     std::cout << "Your HP is " << ui.displayHealth(player)
               << "\nYour evasiveness is " << player.getEvasiveness()
               << "\nYour attack is " << player.getAttack() << std::endl;
@@ -94,7 +94,7 @@ inline void sleep(int duration){
     std::this_thread::sleep_for(wait);
 }
 
-void beginning(interface ui, playableCharacter player){
+void beginning(gameInterface ui, playableCharacter player){
     std::cout << "..." << std::endl;
     sleep(3);
     playerSay(player, "Where am I?");
@@ -110,7 +110,7 @@ void beginning(interface ui, playableCharacter player){
               << "Basically, something something grand adventure something something dragon." << std::endl;
     sleep(3);
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
-    sleep(1);
+    sleep(2);
     std::cout << "Mysterious Ominous Voice: Let's not dwell on past events. Here's a living test dummy"
               << " for you to fight with!\n" << std::endl;
     sleep(2);
@@ -136,7 +136,7 @@ void beginning(interface ui, playableCharacter player){
     sleep(2);
     playerSay(player, "What the hell is going on with this dragon thing?");
     sleep(2);
-    std::cout << "Mysterious Ominous Voice: Don't you worry about that!" <<
+    std::cout << "Mysterious Ominous Voice: Don't you worry about that! " <<
                  "We'll cross that bridge when we get there." << std::endl;
     sleep(1);
     playerSay(player, "For God's sake! First there's a dragon now there's a bridge?");
@@ -145,8 +145,10 @@ void beginning(interface ui, playableCharacter player){
               << std::endl;
     sleep(1);
     playerSay(player, "THERE ARE CLOWNS TOO!?");
+    sleep(2);
     std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
     enemy clown("clown", 10000, 500, 100, true);
     ui.startAttack(player, clown);
+    displayMap(1);
 }
 #endif // GAMEFUNCTIONS

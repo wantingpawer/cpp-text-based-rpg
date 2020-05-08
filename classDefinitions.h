@@ -5,7 +5,7 @@ class entity;
 class base_atk;
 class basic_atk;
 class playableCharacter;
-class interface;
+class gameInterface;
 class enemy;
 
 class base_atk{
@@ -59,7 +59,7 @@ private:
     void createAttack();
 };
 
-class interface{
+class gameInterface{
 public:
     int startAttack(playableCharacter player, enemy opponent);
     inline std::string displayHealth(entity target);
