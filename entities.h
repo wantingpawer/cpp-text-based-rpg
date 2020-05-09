@@ -67,7 +67,21 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness){
     this -> lvl = lvl;
     this -> evasiveness = evasiveness;
 }
+enemy::enemy(){
+    this -> type = "ERROR";
+    this -> maxhp = 1000000;
+    this -> hp = 1000000;
+    this -> lvl = 1000000;
+    this -> evasiveness = 100000;
+}
 
+void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness){
+    this -> type = type;
+    this -> maxhp = hp;
+    this -> hp = hp;
+    this -> lvl = lvl;
+    this -> evasiveness = evasiveness;
+}
 
 std::string enemy::getType(){
     return type;

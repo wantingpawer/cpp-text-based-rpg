@@ -1,9 +1,8 @@
 #ifndef OSDEPENDENT
 #define OSDEPENDENT
 
-#ifdef WINDOWS
-#include "windows.h"
-#endif // WINDOWS
+std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
+                                       enemy onHitX, playableCharacter player, gameInterface ui);
 
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
@@ -32,9 +31,14 @@ void clearScreen(){
     #endif // LINUX
 }
 
-void displayMap(int level){
+void displayMap(int level, playableCharacter player, gameInterface ui){
+
+    //declares the map array, and the x and y co ords
     std::array<std::string, 10> map;
     int playerX, playerY;
+    enemy onHitX;
+
+    //Just sets the level based on the level provided to the function
     switch(level){
         case 1:
             map[0] = "###################";
@@ -48,14 +52,18 @@ void displayMap(int level){
             map[8] = "#          #       ";
             map[9] = "###################";
             playerX = 1; playerY = 1;
+            onHitX.setAttributes("Training Dummy", 50, 0, 0);
             break;
 
     }
+
+    //I don't need to comment this
     std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
     bool running = true;
     #ifdef WINDOWS
 
     while(running == true){
+        //prints out the map
         system("CLS");
         for(int i = 0; i < 10; i++){
             std::cout << map[i] << std::endl;
@@ -64,32 +72,57 @@ void displayMap(int level){
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
-            if(map[playerY - 1][playerX] == '#') continue;
-            if(map[playerY - 1][playerX] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerY][playerX] = ' ';
-            map[--playerY][playerX] = 'O';
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui);
+            if(newMap != map){
+                playerY--;
+                map = newMap;
+            }
         }
         if(GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x44)){
-            if(map[playerY][playerX + 1] == '#') continue;
-            if(map[playerY][playerX + 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerY][playerX] = ' ';
-            map[playerY][++playerX] = 'O';
+            std::array<std::string, 10> newMap = handleMove(playerX + 1, playerY, map, 1, onHitX, player, ui);
+            if(newMap != map){
+                playerX++;
+                map = newMap;
+            }
         }
         if(GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(0x53)){
-            if(map[playerY + 1][playerX] == '#') continue;
-            if(map[playerY + 1][playerX] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerY][playerX] = ' ';
-            map[++playerY][playerX] = 'O';
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY + 1, map, 2, onHitX, player, ui);
+            if(newMap != map){
+                playerY++;
+                map = newMap;
+            }
         }
         if(GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41)){
-            if(map[playerY][playerX - 1] == '#') continue;
-            if(map[playerY][playerX - 1] == 'X') {std::cout << "Hit an enemy!" << std::endl; continue;}
-            map[playerY][playerX] = ' ';
-            map[playerY][--playerX] = 'O';
+            std::array<std::string, 10> newMap = handleMove(playerX - 1, playerY, map, 3, onHitX, player, ui);
+            if(newMap != map){
+                playerX--;
+                map = newMap;
+            }
         }
     }
 
     #endif // WINDOWS
+}
+
+void startBattle(enemy opponent, playableCharacter player, gameInterface ui){
+    clearScreen();
+    opponent.appearanceMessage();
+    ui.startAttack(player, opponent);
+}
+
+//0 = up, 1 = right, 2 = down, 3 = left for the direction
+std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
+                                       enemy onHitX, playableCharacter player, gameInterface ui){
+    if(map[y][x] == '#') return map;
+    if(map[y][x] == 'X') {startBattle(onHitX, player, ui); return map;}
+    map[y][x] = 'O';
+    switch(direction){
+        case 0: map[y + 1][x] = ' '; break;
+        case 1: map[y][x - 1] = ' '; break;
+        case 2: map[y - 1][x] = ' '; break;
+        case 3: map[y][x + 1] = ' '; break;
+    }
+    return map;
 }
 
 #endif // OSDEPENDENT

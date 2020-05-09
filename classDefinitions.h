@@ -73,6 +73,8 @@ class enemy : public entity{
 public:
     enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearance);
     enemy(std::string type, int hp, int lvl, int evasiveness);
+    enemy();
+    void setAttributes(std::string type, int hp, int lvl, int evasiveness);
     std::string getType();
     void appearanceMessage();
 
