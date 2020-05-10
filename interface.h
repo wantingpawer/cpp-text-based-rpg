@@ -60,7 +60,11 @@ int gameInterface::playerAttack(playableCharacter player, enemy opponent){
     switch(choice){
         case 1: dmg = player.fight.calculateDmg(&player, &opponent); break;
         case 2: player.tryToEscape() ? dmg = -1 : dmg = 0; break;
-        default: std::cout << "Invalid selection! No damage dealt." << std::endl; break;
+        default:
+            std::cout << "Invalid selection! No damage dealt." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(100, '\n');
+            break;
     }
     if(dmg != -1) std::cout << "You dealt " << dmg << " damage!\n" << std::endl;  //don't wanna display -1 dmg
     return dmg;
