@@ -34,8 +34,14 @@ playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack
     this -> hp = hp;
     this -> lvl = 1;
     this -> attack = attack;
+    this -> lives = 2;
     createAttack();
 }
+
+int playableCharacter::getLives() {return this -> lives;}
+
+void playableCharacter::setLives(int lives) {this -> lives = lives;}
+void playableCharacter::setHp(int hp) {this -> hp = hp;}
 
 void playableCharacter::createAttack(){
     if(attack == "Fireball"){

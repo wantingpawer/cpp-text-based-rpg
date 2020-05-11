@@ -45,6 +45,9 @@ protected:
 
 class playableCharacter : public entity{
 public:
+    inline int getLives();
+    inline void setLives(int lives);
+    inline void setHp(int hp);
     inline std::string getAttack();
     void setName(std::string name);
     std::string getName();
@@ -54,6 +57,7 @@ public:
 private:
     std::string attack;
     std::string name;
+    int lives;
     int exp;
 
     void createAttack();
@@ -61,12 +65,12 @@ private:
 
 class gameInterface{
 public:
-    int startAttack(playableCharacter player, enemy opponent);
+    int startAttack(playableCharacter *player, enemy opponent);
     inline std::string displayHealth(entity target);
 
 private:
-    int playerAttack(playableCharacter player, enemy opponent);
-    int opponentAttack(enemy opponent, playableCharacter player);
+    int playerAttack(playableCharacter *player, enemy opponent);
+    int opponentAttack(enemy opponent, playableCharacter *player);
 };
 
 class enemy : public entity{

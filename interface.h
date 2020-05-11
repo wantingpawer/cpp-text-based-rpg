@@ -1,20 +1,23 @@
 #ifndef GAMEINTERFACE
 #define GAMEINTERFACE
 
+//this is just so that I can call the "died" function in here
+void died(playableCharacter *player);
+
 //This function is just here so that it's cleaner to display the health of entities
 std::string gameInterface::displayHealth(entity target){
     return std::to_string(target.getHp()) + "/" + std::to_string(target.getMaxHp());
 }
 
     //When run, this'll start the attack sequence
-int gameInterface::startAttack(playableCharacter player, enemy opponent){
+int gameInterface::startAttack(playableCharacter *player, enemy opponent){
 
     bool escaped = false;
     std::cout << "=== A BATTLE HAST BEGUN ===\n" <<
-            player.getName() << ": " << displayHealth(player) << "\n" <<
+            player->getName() << ": " << displayHealth(*player) << "\n" <<
             opponent.getType() << ": " << displayHealth(opponent) << "\n"<< std::endl;
 
-    while(player.getHp() > 0 && opponent.getHp() > 0) {
+    while(player->getHp() > 0 && opponent.getHp() > 0) {
 
         //These just store the damage done by both parties
         int playerDmg = playerAttack(player, opponent);
@@ -27,12 +30,12 @@ int gameInterface::startAttack(playableCharacter player, enemy opponent){
         }
         //Calculates damage on both parties
         opponent.takeDmg(playerDmg);
-        player.takeDmg(opponentDmg);
+        player->takeDmg(opponentDmg);
 
         clearScreen(); //OSdependent.h
 
         //This simply displays the health of the players
-        std::cout << player.getName() << ": " << displayHealth(player) << "\n" <<
+        std::cout << player->getName() << ": " << displayHealth(*player) << "\n" <<
                 opponent.getType() << ": " << displayHealth(opponent) << "\n"<< std::endl;
     }
 
@@ -44,22 +47,31 @@ int gameInterface::startAttack(playableCharacter player, enemy opponent){
         return 2;
     }
     int won;
-    player.getHp() <= 0 ? won = 0 : won = 1;
+    player->getHp() <= 0 ? won = 0 : won = 1;
     std::cout << (won ? "You" : opponent.getType()) << " won the battle!" << std::endl;
+    if(!won){
+        int lives = player->getLives();
+        player->setLives(--lives);
+        std::string lifeOrLives = lives == 1 ? " life" : " lives";
+        std::cout << "You have " << lives << lifeOrLives << " remaining!" << std::endl;
+        if(lives > 0){
+            player->setHp(player->getMaxHp());
+        }else died(player);
+    }
     clearScreen();
-    return won;
+    return won; //0 if lost,  1 if won
 }
 
-int gameInterface::playerAttack(playableCharacter player, enemy opponent){
+int gameInterface::playerAttack(playableCharacter *player, enemy opponent){
     int choice;
     int dmg = 0;
-    std::cout << "Choose an action:\n" << "1) " << player.getAttack() << "\n2) Run" << std::endl;
+    std::cout << "Choose an action:\n" << "1) " << player->getAttack() << "\n2) Run" << std::endl;
     std::cin >> choice;
 
     //This switch statement just checks for the choice the player made and acts appropriately
     switch(choice){
-        case 1: dmg = player.fight.calculateDmg(&player, &opponent); break;
-        case 2: player.tryToEscape() ? dmg = -1 : dmg = 0; break;
+        case 1: dmg = player->fight.calculateDmg(player, &opponent); break;
+        case 2: player->tryToEscape() ? dmg = -1 : dmg = 0; break;
         default:
             std::cout << "Invalid selection! No damage dealt." << std::endl;
             std::cin.clear();
@@ -72,8 +84,8 @@ int gameInterface::playerAttack(playableCharacter player, enemy opponent){
 
 /*As there is no choice this is a separate function that doesn't have a choice and just
 calculates the damage done*/
-int gameInterface::opponentAttack(enemy opponent, playableCharacter player){
-    int dmg = opponent.fight.calculateDmg(&opponent, &player);
+int gameInterface::opponentAttack(enemy opponent, playableCharacter *player){
+    int dmg = opponent.fight.calculateDmg(&opponent, player);
     std::cout << opponent.getType() << " dealt " << dmg << " damage to you!\n" << std::endl;
     return dmg;
 }

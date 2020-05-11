@@ -2,7 +2,13 @@
 #define GAMEFUNCTIONS
 #include "entities.h"
 int classSelection();
-void viewStats(playableCharacter player, gameInterface ui);
+void viewStats(playableCharacter *player, gameInterface ui);
+
+void died(playableCharacter *player){
+    std::cout << "And thus, the adventures of " << player->getName() << " are over." << std::endl;
+    clearScreen();
+    exit(0);
+}
 
 playableCharacter start(gameInterface ui){
 
@@ -53,7 +59,7 @@ playableCharacter start(gameInterface ui){
     player.setName(name);
     std::cout << "Welcome " << player.getName() << "\n" << std::endl;
 
-    viewStats(player, ui);
+    viewStats(&player, ui);
 
     return player;
 }
@@ -77,16 +83,16 @@ int classSelection(){
 }
 
 //The view stats function just allows the user to see their stats
-void viewStats(playableCharacter player, gameInterface ui){
-    std::cout << "Your HP is " << ui.displayHealth(player)
-              << "\nYour evasiveness is " << player.getEvasiveness()
-              << "\nYour attack is " << player.getAttack() << std::endl;
+void viewStats(playableCharacter *player, gameInterface ui){
+    std::cout << "Your HP is " << ui.displayHealth(*player)
+              << "\nYour evasiveness is " << player->getEvasiveness()
+              << "\nYour attack is " << player->getAttack() << std::endl;
     clearScreen();
 }
 
 //Playersay and sleep are just here to make the code look cleaner
-inline void playerSay(playableCharacter player, std::string msg){
-    std::cout << player.getName() << ": " << msg << std::endl;
+inline void playerSay(playableCharacter *player, std::string msg){
+    std::cout << player->getName() << ": " << msg << std::endl;
 }
 
 inline void sleep(int duration){
@@ -94,7 +100,7 @@ inline void sleep(int duration){
     std::this_thread::sleep_for(wait);
 }
 
-void beginning(gameInterface ui, playableCharacter player){
+void beginning(gameInterface ui, playableCharacter *player){
     std::cout << "..." << std::endl;
     sleep(3);
     playerSay(player, "Where am I?");
@@ -119,6 +125,7 @@ void beginning(gameInterface ui, playableCharacter player){
     switch(won){
     case 0:
         std::cout << "Mysterious Ominous Voice: Well... let's pretend that didn't happen!" << std::endl;
+        player->setLives(2);
         clearScreen();
         beginning(ui, player);
         break;
@@ -149,6 +156,24 @@ void beginning(gameInterface ui, playableCharacter player){
     std::cout << "Mysterious Ominous Voice: Oh, yeah, they're epic! Lemme show you one!" << std::endl;
     enemy clown("clown", 10000, 500, 100, true);
     ui.startAttack(player, clown);
+    std::cout << "Mysterious Ominous Voice: HA! DID YOU SEE YOUR DEAD FACE JUST THEN?" << std::endl;
+    sleep(2);
+    playerSay(player, "How the hell am I still here? I thought I died");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: Oh, yeah I forgot to say, you only have 2 lives." << std::endl;
+    sleep(2);
+    playerSay(player, "Wait, so I've only got 1 life left?");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: That does make sense." << std::endl;
+    sleep(2);
+    playerSay(player, "Bloody hell.");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: You're acting like I killed someone!" << std::endl;
+    sleep(2);
+    playerSay(player, "I wonder why...");
+    sleep(2);
+    std::cout << "Mysterious Ominous Voice: Anyways, I'll let you into the training room now!" << std::endl;
+    sleep(2);
     displayMap(1, player, ui);
 }
 #endif // GAMEFUNCTIONS

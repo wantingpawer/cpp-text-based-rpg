@@ -11,6 +11,6 @@ int main(){
     //This sets up the game, ready for it to be played
     playableCharacter player = start(ui);
 
-    beginning(ui, player);
+    beginning(ui, &player);
     return 0;
 }

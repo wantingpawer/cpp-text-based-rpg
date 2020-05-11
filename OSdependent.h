@@ -2,7 +2,7 @@
 #define OSDEPENDENT
 
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter player, gameInterface ui);
+                                       enemy onHitX, playableCharacter *player, gameInterface ui);
 
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
@@ -31,7 +31,7 @@ void clearScreen(){
     #endif // LINUX
 }
 
-void displayMap(int level, playableCharacter player, gameInterface ui){
+void displayMap(int level, playableCharacter *player, gameInterface ui){
 
     //declares the map array, and the x and y co ords
     std::array<std::string, 10> map;
@@ -49,7 +49,7 @@ void displayMap(int level, playableCharacter player, gameInterface ui){
             map[5] = "#          X      #";
             map[6] = "#          #      #";
             map[7] = "#                 #";
-            map[8] = "#          #       ";
+            map[8] = "#          #      D";
             map[9] = "###################";
             playerX = 1; playerY = 1;
             onHitX.setAttributes("Training Dummy", 50, 0, 0);
@@ -58,7 +58,7 @@ void displayMap(int level, playableCharacter player, gameInterface ui){
     }
 
     //I don't need to comment this
-    std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
+    std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\nD = Door" << std::endl;
     bool running = true;
     #ifdef WINDOWS
 
@@ -104,17 +104,23 @@ void displayMap(int level, playableCharacter player, gameInterface ui){
     #endif // WINDOWS
 }
 
-void startBattle(enemy opponent, playableCharacter player, gameInterface ui){
+inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
     clearScreen();
     opponent.appearanceMessage();
-    ui.startAttack(player, opponent);
+    return ui.startAttack(player, opponent);
 }
 
 //0 = up, 1 = right, 2 = down, 3 = left for the direction
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter player, gameInterface ui){
+                                       enemy onHitX, playableCharacter *player, gameInterface ui){
+    //basically, if you hit a wall, do nothing
     if(map[y][x] == '#') return map;
-    if(map[y][x] == 'X') {startBattle(onHitX, player, ui); return map;}
+    if(map[y][x] == 'D') displayMap(1, player, ui);
+    if(map[y][x] == 'X') {
+            int won = startBattle(onHitX, player, ui);
+            if(!won || won == 2) return map;
+    }
+    //changes the current location to the player, replaces old location with space
     map[y][x] = 'O';
     switch(direction){
         case 0: map[y + 1][x] = ' '; break;
