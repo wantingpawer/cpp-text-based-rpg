@@ -2,12 +2,12 @@
 #define OSDEPENDENT
 
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter *player, gameInterface ui);
+                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level);
 
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
 for whatever reason*/
-void clearScreen(){
+inline void clearScreen(){
 
     #ifdef WINDOWS
 
@@ -54,7 +54,33 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             playerX = 1; playerY = 1;
             onHitX.setAttributes("Training Dummy", 50, 0, 0);
             break;
-
+        case 2:
+            theEmptyRoom(ui, player);
+            map[0] = "###############D###";
+            map[1] = "#                 #";
+            map[2] = "##X################";
+            map[3] = "#                 #";
+            map[4] = "#                 #";
+            map[5] = "#                 #";
+            map[6] = "#                 #";
+            map[7] = "#                 #";
+            map[8] = "#O                #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("WALL", 250, 0, 0);
+            break;
+        default:
+            map[0] = "============";
+            map[1] = "YOU";
+            map[2] = "FIND";
+            map[3] = "YOURSELF";
+            map[4] = "IN";
+            map[5] = "A";
+            map[6] = "STRANGE";
+            map[7] = "PLACE";
+            map[8] = "============";
+            map[9] = "";
+            playerX = 100; playerY = 100;
     }
 
     //I don't need to comment this
@@ -72,28 +98,28 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
-            std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui);
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui, level);
             if(newMap != map){
                 playerY--;
                 map = newMap;
             }
         }
         if(GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(0x44)){
-            std::array<std::string, 10> newMap = handleMove(playerX + 1, playerY, map, 1, onHitX, player, ui);
+            std::array<std::string, 10> newMap = handleMove(playerX + 1, playerY, map, 1, onHitX, player, ui, level);
             if(newMap != map){
                 playerX++;
                 map = newMap;
             }
         }
         if(GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(0x53)){
-            std::array<std::string, 10> newMap = handleMove(playerX, playerY + 1, map, 2, onHitX, player, ui);
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY + 1, map, 2, onHitX, player, ui, level);
             if(newMap != map){
                 playerY++;
                 map = newMap;
             }
         }
         if(GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41)){
-            std::array<std::string, 10> newMap = handleMove(playerX - 1, playerY, map, 3, onHitX, player, ui);
+            std::array<std::string, 10> newMap = handleMove(playerX - 1, playerY, map, 3, onHitX, player, ui, level);
             if(newMap != map){
                 playerX--;
                 map = newMap;
@@ -112,10 +138,10 @@ inline int startBattle(enemy opponent, playableCharacter *player, gameInterface 
 
 //0 = up, 1 = right, 2 = down, 3 = left for the direction
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter *player, gameInterface ui){
-    //basically, if you hit a wall, do nothing
+                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level){
+    //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
     if(map[y][x] == '#') return map;
-    if(map[y][x] == 'D') displayMap(1, player, ui);
+    if(map[y][x] == 'D') displayMap(++level, player, ui);
     if(map[y][x] == 'X') {
             int won = startBattle(onHitX, player, ui);
             if(!won || won == 2) return map;

@@ -12,6 +12,7 @@
 #include "windows.h"
 #endif // WINDOWS
 #include "classDefinitions.h"
+#include "dialogue.h"
 #include "OSdependent.h"
 #include "interface.h"
 #include "entities.h"
