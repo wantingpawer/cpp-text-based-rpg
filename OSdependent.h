@@ -128,6 +128,48 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     }
 
     #endif // WINDOWS
+    #ifdef LINUX
+
+        while(running == true){
+        //prints out the map
+        system("clear");
+        for(int i = 0; i < 10; i++){
+            std::cout << map[i] << std::endl;
+        }
+        std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
+        char c;
+        std::cin >> c;
+
+        if(c == "w" || c == "W"){
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui, level);
+            if(newMap != map){
+                playerY--;
+                map = newMap;
+            }
+        }
+        if(c == "d" || c == "D"){
+            std::array<std::string, 10> newMap = handleMove(playerX + 1, playerY, map, 1, onHitX, player, ui, level);
+            if(newMap != map){
+                playerX++;
+                map = newMap;
+            }
+        }
+        if(c == "s" || c == "S"){
+            std::array<std::string, 10> newMap = handleMove(playerX, playerY + 1, map, 2, onHitX, player, ui, level);
+            if(newMap != map){
+                playerY++;
+                map = newMap;
+            }
+        }
+        if(c == "a" || c == "A"){
+            std::array<std::string, 10> newMap = handleMove(playerX - 1, playerY, map, 3, onHitX, player, ui, level);
+            if(newMap != map){
+                playerX--;
+                map = newMap;
+            }
+        }
+
+    #endif // LINUX
 }
 
 inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
