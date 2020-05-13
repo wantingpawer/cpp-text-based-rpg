@@ -140,28 +140,28 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         char c;
         std::cin >> c;
 
-        if(c == "w" || c == "W"){
+        if(c == 'w' || c == 'W'){
             std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui, level);
             if(newMap != map){
                 playerY--;
                 map = newMap;
             }
         }
-        if(c == "d" || c == "D"){
+        if(c == 'd' || c == 'D'){
             std::array<std::string, 10> newMap = handleMove(playerX + 1, playerY, map, 1, onHitX, player, ui, level);
             if(newMap != map){
                 playerX++;
                 map = newMap;
             }
         }
-        if(c == "s" || c == "S"){
+        if(c == 's' || c == 'S'){
             std::array<std::string, 10> newMap = handleMove(playerX, playerY + 1, map, 2, onHitX, player, ui, level);
             if(newMap != map){
                 playerY++;
                 map = newMap;
             }
         }
-        if(c == "a" || c == "A"){
+        if(c == 'a' || c == 'A'){
             std::array<std::string, 10> newMap = handleMove(playerX - 1, playerY, map, 3, onHitX, player, ui, level);
             if(newMap != map){
                 playerX--;
