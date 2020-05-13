@@ -53,6 +53,10 @@ public:
     std::string getName();
     bool tryToEscape();
     playableCharacter(int hp, int evasiveness, std::string attack);
+    struct inventoryStruct{
+        int healingPotions = 1;
+    };
+    inventoryStruct inventory;
 
 private:
     std::string attack;

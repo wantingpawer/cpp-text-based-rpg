@@ -1,8 +1,9 @@
 #ifndef GAMEINTERFACE
 #define GAMEINTERFACE
 
-//this is just so that I can call the "died" function in here
+//Functions from other files
 void died(playableCharacter *player);
+void selectInventoryItem(playableCharacter *player);
 
 //This function is just here so that it's cleaner to display the health of entities
 std::string gameInterface::displayHealth(entity target){
@@ -65,19 +66,20 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
 int gameInterface::playerAttack(playableCharacter *player, enemy opponent){
     int choice;
     int dmg = 0;
-    std::cout << "Choose an action:\n" << "1) " << player->getAttack() << "\n2) Run" << std::endl;
+    std::cout << "Choose an action:\n" << "1) " << player->getAttack() << "\n2) Run\n3) Inventory" << std::endl;
     std::cin >> choice;
 
     //This switch statement just checks for the choice the player made and acts appropriately
     switch(choice){
         case 1: dmg = player->fight.calculateDmg(player, &opponent); break;
         case 2: player->tryToEscape() ? dmg = -1 : dmg = 0; break;
+        case 3: selectInventoryItem(player); break;
         default:
             std::cout << "Invalid selection! No damage dealt." << std::endl;
-            std::cin.clear();
-            std::cin.ignore(100, '\n');
             break;
     }
+    std::cin.clear();
+    std::cin.ignore(100, '\n');
     if(dmg != -1) std::cout << "You dealt " << dmg << " damage!\n" << std::endl;  //don't wanna display -1 dmg
     return dmg;
 }

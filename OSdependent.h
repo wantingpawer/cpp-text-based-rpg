@@ -31,6 +31,16 @@ inline void clearScreen(){
     #endif // LINUX
 }
 
+inline void clearScreenPromptless(){
+
+    #ifdef WINDOWS
+    system("CLS");
+    #endif // WINDOWS
+    #ifdef LINUX
+    system("clear");
+    #endif // LINUX
+}
+
 void displayMap(int level, playableCharacter *player, gameInterface ui){
 
     //declares the map array, and the x and y co ords
@@ -67,7 +77,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("WALL", 250, 0, 0);
+            onHitX.setAttributes("WALL", 250, -10, 0);
             break;
         default:
             map[0] = "============";
