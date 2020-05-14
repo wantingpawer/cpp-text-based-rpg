@@ -1,6 +1,9 @@
 #ifndef OSDEPENDENT
 #define OSDEPENDENT
 
+//functions from other files
+void selectInventoryItem(playableCharacter *player);
+
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
                                        enemy onHitX, playableCharacter *player, gameInterface ui, int level);
 
@@ -93,8 +96,6 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             playerX = 100; playerY = 100;
     }
 
-    //I don't need to comment this
-    std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\nD = Door" << std::endl;
     bool running = true;
     #ifdef WINDOWS
 
@@ -105,6 +106,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             std::cout << map[i] << std::endl;
         }
         std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
+        std::cout << "Controls:\nWASD to move\ni for inventory" << std::endl;
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
@@ -135,6 +137,11 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
                 map = newMap;
             }
         }
+
+        if(GetAsyncKeyState(0x49)){
+            selectInventoryItem(player);
+            clearScreen();
+        }
     }
 
     #endif // WINDOWS
@@ -147,6 +154,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             std::cout << map[i] << std::endl;
         }
         std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
+        std::cout << "Controls:\nWASD to move\ni for inventory" << std::endl;
         char c;
         std::cin >> c;
 
@@ -177,6 +185,9 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
                 playerX--;
                 map = newMap;
             }
+        }
+        if(c == 'i' || c == 'I'){
+            selectInventoryItem(player);
         }
 
     #endif // LINUX

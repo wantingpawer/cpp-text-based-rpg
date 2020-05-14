@@ -1,3 +1,4 @@
+//#define NOSLEEP
 #define WINDOWS
 //#define LINUX
 

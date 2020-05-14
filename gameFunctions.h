@@ -93,7 +93,12 @@ void viewStats(playableCharacter *player, gameInterface ui){
 void useHealingPotion(playableCharacter *player){
     if(player->inventory.healingPotions > 0){
         player->inventory.healingPotions--;
-        int recovered = 50 + (player->getLvl() * 10) + player->getHp();
+        int maxHeal = 30;
+        int minHeal = 20;
+        int heal = minHeal + (std::rand() % maxHeal - minHeal);
+        int recovered = heal + (player->getLvl() * 10);
+        std::cout << "You healed " << recovered << " HP!" << std::endl;
+        recovered += player->getHp();
         if(recovered > player->getMaxHp()) recovered = player->getMaxHp();
         player->setHp(recovered);
         std::cout << "You recovered to " << recovered << " HP!" << std::endl;
@@ -106,9 +111,11 @@ void selectInventoryItem(playableCharacter *player){
     clearScreenPromptless();
     int input;
     std::cout << "1) Healing Potions: " << player->inventory.healingPotions << std::endl;
+    std::cout << "2) Cancel (if in battle you'll lose your move)" << std::endl;
     std::cin >> input;
     switch(input){
-        case 1: useHealingPotion(player);
+        case 1: useHealingPotion(player); break;
+        case 2: break;
     }
 }
 

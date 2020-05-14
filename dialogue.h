@@ -7,8 +7,12 @@ void displayMap(int level, playableCharacter* player, gameInterface ui);
 
 //Playersay, MOVSay and sleep are just here to make the code look cleaner
 inline void sleep(int duration){
+    #ifndef NOSLEEP
+
     std::chrono::seconds wait(duration);
     std::this_thread::sleep_for(wait);
+
+    #endif // NOSLEEP
 }
 
 inline void playerSay(playableCharacter *player, std::string msg){
