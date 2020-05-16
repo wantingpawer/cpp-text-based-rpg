@@ -80,7 +80,9 @@ int gameInterface::playerAttack(playableCharacter *player, enemy opponent){
     }
     std::cin.clear();
     std::cin.ignore(100, '\n');
-    if(dmg != -1) std::cout << "You dealt " << dmg << " damage!\n" << std::endl;  //don't wanna display -1 dmg
+    if(dmg == -1) return dmg;
+    if(dmg == 0) {std::cout << "You missed your attack!\n" << std::endl; return dmg; }
+    std::cout << "You dealt " << dmg << " damage!\n" << std::endl;  //don't wanna display -1 dmg
     return dmg;
 }
 
@@ -88,6 +90,7 @@ int gameInterface::playerAttack(playableCharacter *player, enemy opponent){
 calculates the damage done*/
 int gameInterface::opponentAttack(enemy opponent, playableCharacter *player){
     int dmg = opponent.fight.calculateDmg(&opponent, player);
+    if(dmg == 0) {std::cout << opponent.getType() << " missed!" << std::endl; return dmg;}
     std::cout << opponent.getType() << " dealt " << dmg << " damage to you!\n" << std::endl;
     return dmg;
 }
