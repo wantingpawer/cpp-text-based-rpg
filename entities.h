@@ -3,7 +3,13 @@
 #include "attacks.h"
 
 //Simple getters for classes that inherit from entity
-entity::takeDmg(int dmg){ return hp -= dmg; }
+entity::takeDmg(int dmg){
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY TAKEN " << dmg << " DAMAGE" << std::endl;
+    pause(false);
+    #endif // DEBUG
+    return hp -= dmg;
+}
 entity::getHp(){ return hp; }
 entity::getMaxHp() { return maxhp; }
 entity::getLvl() { return lvl; }
@@ -28,6 +34,10 @@ bool playableCharacter::tryToEscape() {
 sets all of the values required by the
 entity class, which can be found above.*/
 playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack){
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
+    pause(false);
+    #endif // DEBUG
     this -> exp = 0;
     this -> evasiveness = evasiveness;
     this -> maxhp = hp;
@@ -40,8 +50,20 @@ playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack
 
 int playableCharacter::getLives() {return this -> lives;}
 
-void playableCharacter::setLives(int lives) {this -> lives = lives;}
-void playableCharacter::setHp(int hp) {this -> hp = hp;}
+void playableCharacter::setLives(int lives) {
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY LIVES SET TO " << lives << std::endl;
+    pause(false);
+    #endif // DEBUG
+    this -> lives = lives;
+}
+void playableCharacter::setHp(int hp) {
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY HP SET TO " << hp << std::endl;
+    pause(false);
+    #endif // DEBUG
+    this -> hp = hp;
+}
 
 void playableCharacter::createAttack(){
     if(attack == "Fireball"){
@@ -57,6 +79,10 @@ void playableCharacter::createAttack(){
 by the entity class, which can be found above. It can also
 use the appearance message*/
 enemy::enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearance){
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
+    pause(false);
+    #endif // DEBUG
     this -> type = type;
     this -> maxhp = hp;
     this -> hp = hp;
@@ -67,6 +93,10 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearan
 
 //Same thing as above but without doAppearance
 enemy::enemy(std::string type, int hp, int lvl, int evasiveness){
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
+    pause(false);
+    #endif // DEBUG
     this -> type = type;
     this -> maxhp = hp;
     this -> hp = hp;
@@ -74,6 +104,10 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness){
     this -> evasiveness = evasiveness;
 }
 enemy::enemy(){
+    #ifdef DEBUG
+    std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
+    pause(false);
+    #endif // DEBUG
     this -> type = "ERROR";
     this -> maxhp = 1000000;
     this -> hp = 1000000;

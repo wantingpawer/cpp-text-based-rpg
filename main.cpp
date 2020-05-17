@@ -1,4 +1,5 @@
 //#define NOSLEEP
+//#define DEBUG
 #define WINDOWS
 //#define LINUX
 

@@ -119,4 +119,17 @@ void theEmptyRoom(gameInterface ui, playableCharacter *player){
     MOVSay("Yay! Onwards we go then!");
 }
 
+void enterTheRealWorld(gameInterface ui, playableCharacter *player){
+    clearScreen();
+    MOVSay("Welcome to the outside world, and congrats on making it out of training!");
+    playerSay(player, "But I was literally in the real world before you kidnapped me.");
+    MOVSay("Nah, this is the *real* real world!");
+    playerSay(player, "That's why the building I just left is labelled \"Simulation Training Room\"");
+    MOVSay("What do you mean?");
+    playerSay(player, "Where did... You know what, I don't care, just tell me what to do next");
+    MOVSay("Well, you stand in a small town. There is a health building which will refill your HP");
+    playerSay(player, "Yeah... that's oddly convenient... just like real life...");
+    MOVSay("Exactly! Now let's go!");
+}
+
 #endif // DIALOGUE

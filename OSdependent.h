@@ -44,12 +44,40 @@ inline void clearScreenPromptless(){
     #endif // LINUX
 }
 
+
+/*This looks surprisingly cryptic for what it is. Basically just pauses the execution until a key is pressed,
+and the boolean parameter is just to specify whether you want a prompt to show up or not for the pause*/
+inline void pause(bool showPromp){
+
+    if(showPromp){
+        #ifdef WINDOWS
+        system("PAUSE");
+        #endif //WINDOWS
+        #ifdef LINUX
+        std::cout << "Press enter to continue..." << std::endl;
+        #endif // LINUX
+    } else {
+        #ifdef WINDOWS
+        system("PAUSE > NUL");
+        #endif // WINDOWS
+    }
+
+    #ifdef LINUX
+    std::string cont;
+    std::cin.clear();
+    std::cin.ignore(1);
+    std::getline(std::cin, cont);
+    #endif // LINUX
+}
+
 void displayMap(int level, playableCharacter *player, gameInterface ui){
 
     //declares the map array, and the x and y co ords
     std::array<std::string, 10> map;
     int playerX, playerY;
     enemy onHitX;
+    std::string key = "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n";
+    std::string controls = "Controls:\nWASD to move\ni for inventory";
 
     //Just sets the level based on the level provided to the function
     switch(level){
@@ -82,6 +110,24 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             playerX = 1; playerY = 8;
             onHitX.setAttributes("WALL", 250, -10, 0);
             break;
+
+        case 3:
+            enterTheRealWorld(ui, player);
+            map[0] = "###############D###";
+            map[1] = "#                 #";
+            map[2] = "# #####    ###### #";
+            map[3] = "# #   H    #    # #";
+            map[4] = "# #####    ###### #";
+            map[5] = "# #   #    #  #   #";
+            map[6] = "# #####    #  #   #";
+            map[7] = "#          ####   #";
+            map[8] = "#O                #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999);
+            key += "H = Health Stop\n";
+            break;
+
         default:
             map[0] = "============";
             map[1] = "YOU";
@@ -105,8 +151,8 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         for(int i = 0; i < 10; i++){
             std::cout << map[i] << std::endl;
         }
-        std::cout << "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n" << std::endl;
-        std::cout << "Controls:\nWASD to move\ni for inventory" << std::endl;
+        std::cout << key << std::endl;
+        std::cout << controls << std::endl;
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
@@ -205,9 +251,15 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
     //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
     if(map[y][x] == '#') return map;
     if(map[y][x] == 'D') displayMap(++level, player, ui);
+    if(map[y][x] == 'H') {
+        player->setHp(player->getMaxHp());
+        std::cout << "Here, take your health back!" << std::endl;
+        pause(false);
+        return map;
+    }
     if(map[y][x] == 'X') {
-            int won = startBattle(onHitX, player, ui);
-            if(!won || won == 2) return map;
+        int won = startBattle(onHitX, player, ui);
+        if(!won || won == 2) return map;
     }
     //changes the current location to the player, replaces old location with space
     map[y][x] = 'O';
