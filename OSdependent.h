@@ -93,7 +93,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#          #      D";
             map[9] = "###################";
             playerX = 1; playerY = 1;
-            onHitX.setAttributes("Training Dummy", 50, 0, 0);
+            onHitX.setAttributes("Training Dummy", 50, 0, 0, 35);
             break;
         case 2:
             theEmptyRoom(ui, player);
@@ -108,7 +108,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("WALL", 250, -10, 0);
+            onHitX.setAttributes("WALL", 250, -10, 0, 100);
             break;
 
         case 3:
@@ -124,7 +124,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999);
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999);
             key += "H = Health Stop\n";
             break;
 

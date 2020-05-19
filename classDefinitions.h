@@ -46,6 +46,7 @@ protected:
 class playableCharacter : public entity{
 public:
     inline int getLives();
+    void gainExp(int exp);
     inline void setLives(int lives);
     inline void setHp(int hp);
     inline std::string getAttack();
@@ -63,8 +64,10 @@ private:
     std::string name;
     int lives;
     int exp;
+    int nextLvl;
 
     void createAttack();
+    void testLevelUp();
 };
 
 class gameInterface{
@@ -79,15 +82,18 @@ private:
 
 class enemy : public entity{
 public:
-    enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearance);
-    enemy(std::string type, int hp, int lvl, int evasiveness);
+    enemy(std::string type, int hp, int lvl, int evasiveness, int exp, bool doAppearance);
+    enemy(std::string type, int hp, int lvl, int exp, int evasiveness);
     enemy();
-    void setAttributes(std::string type, int hp, int lvl, int evasiveness);
+    inline int getExp();
+    void setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp);
     std::string getType();
     void appearanceMessage();
 
 private:
     std::string type;
+    //Enemies have experience because that's what's given to a player for killing the enemy
+    int exp;
 };
 
 #endif // CLASSDEF

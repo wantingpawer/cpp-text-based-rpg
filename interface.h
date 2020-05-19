@@ -58,6 +58,10 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
         if(lives > 0){
             player->setHp(player->getMaxHp());
         }else died(player);
+    }else{
+        int gained = opponent.getExp();
+        std::cout << "You gained " << gained << " experience!" << std::endl;
+        player->gainExp(gained);
     }
     clearScreen();
     return won; //0 if lost,  1 if won

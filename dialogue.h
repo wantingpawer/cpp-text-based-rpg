@@ -47,7 +47,7 @@ void beginning(gameInterface ui, playableCharacter *player){
            3);
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
     MOVSay("Let's not dwell on past events. Here's a living test dummy for you to fight with!\n");
-    enemy dummy("Test Dummy", 10, 0, 0, true);
+    enemy dummy("Test Dummy", 10, 0, 0, 10, true);
     int won = ui.startAttack(player, dummy);
     switch(won){
     case 0:
@@ -73,7 +73,7 @@ void beginning(gameInterface ui, playableCharacter *player){
     MOVSay("God, someone isn't happy! Just wait till we get to the clowns");
     playerSay(player, "THERE ARE CLOWNS TOO!?");
     MOVSay("Oh, yeah, they're epic! Lemme show you one!");
-    enemy clown("clown", 10000, 500, 100, true);
+    enemy clown("clown", 10000, 500, 100, 10000, true);
     ui.startAttack(player, clown);
     MOVSay("HA! DID YOU SEE YOUR DEAD FACE JUST THEN?");
     playerSay(player, "How the hell am I still here? I thought I died");

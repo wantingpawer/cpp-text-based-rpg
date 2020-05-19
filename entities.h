@@ -45,6 +45,7 @@ playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack
     this -> lvl = 1;
     this -> attack = attack;
     this -> lives = 2;
+    this -> nextLvl = 100;
     createAttack();
 }
 
@@ -75,10 +76,25 @@ void playableCharacter::createAttack(){
     }
 }
 
+void playableCharacter::gainExp(int exp){
+    this -> exp += exp;
+    this -> testLevelUp();
+}
+
+void playableCharacter::testLevelUp(){
+    if(this -> exp > this -> nextLvl){
+        std::cout << "You levelled up!\n" << std::endl;
+        this -> lvl++;
+        this -> exp -= this -> nextLvl;
+        this -> nextLvl *= 1.05;
+        std::cout << "You need " << nextLvl - exp << " exp to level up again!" << std::endl;
+        clearScreen();
+    }
+}
 /*The enemy constructor sets all of the values required
 by the entity class, which can be found above. It can also
 use the appearance message*/
-enemy::enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearance){
+enemy::enemy(std::string type, int hp, int lvl, int evasiveness, int exp, bool doAppearance){
     #ifdef DEBUG
     std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
     pause(false);
@@ -88,11 +104,12 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness, bool doAppearan
     this -> hp = hp;
     this -> lvl = lvl;
     this -> evasiveness = evasiveness;
+    this -> exp = exp;
     if(doAppearance) appearanceMessage();
 }
 
 //Same thing as above but without doAppearance
-enemy::enemy(std::string type, int hp, int lvl, int evasiveness){
+enemy::enemy(std::string type, int hp, int lvl, int exp, int evasiveness){
     #ifdef DEBUG
     std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
     pause(false);
@@ -101,6 +118,7 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness){
     this -> maxhp = hp;
     this -> hp = hp;
     this -> lvl = lvl;
+    this -> exp = exp;
     this -> evasiveness = evasiveness;
 }
 enemy::enemy(){
@@ -113,15 +131,19 @@ enemy::enemy(){
     this -> hp = 1000000;
     this -> lvl = 1000000;
     this -> evasiveness = 100000;
+    this -> exp = -99999;
 }
 
-void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness){
+void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp){
     this -> type = type;
     this -> maxhp = hp;
     this -> hp = hp;
     this -> lvl = lvl;
     this -> evasiveness = evasiveness;
+    this -> exp = exp;
 }
+
+int enemy::getExp(){return this -> exp;}
 
 std::string enemy::getType(){
     return type;
