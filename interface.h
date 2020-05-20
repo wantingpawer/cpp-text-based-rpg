@@ -15,8 +15,9 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
 
     bool escaped = false;
     std::cout << "=== A BATTLE HAST BEGUN ===\n" <<
-            player->getName() << ": " << displayHealth(*player) << "\n" <<
-            opponent.getType() << ": " << displayHealth(opponent) << "\n"<< std::endl;
+        "Level " << player->getLvl() << " " << player->getName() << ": " << displayHealth(*player) << "\n"
+        << "Level " << opponent.getLvl() << " " <<opponent.getType() << ": " << displayHealth(opponent) << "\n"
+        << std::endl;
 
     while(player->getHp() > 0 && opponent.getHp() > 0) {
 
@@ -36,8 +37,9 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
         clearScreen(); //OSdependent.h
 
         //This simply displays the health of the players
-        std::cout << player->getName() << ": " << displayHealth(*player) << "\n" <<
-                opponent.getType() << ": " << displayHealth(opponent) << "\n"<< std::endl;
+        std::cout << "Level " << player->getLvl() << " " << player->getName() << ": " << displayHealth(*player) << "\n"
+                << "Level " << opponent.getLvl() << " " <<opponent.getType() << ": " << displayHealth(opponent) << "\n"
+                << std::endl;
     }
 
     /*This is just where it figures out the winner and prints

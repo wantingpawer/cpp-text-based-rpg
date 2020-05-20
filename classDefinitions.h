@@ -46,6 +46,8 @@ protected:
 class playableCharacter : public entity{
 public:
     inline int getLives();
+    inline int getExp();
+    inline int getNextLvl();
     void gainExp(int exp);
     inline void setLives(int lives);
     inline void setHp(int hp);

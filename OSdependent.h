@@ -128,6 +128,22 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             key += "H = Health Stop\n";
             break;
 
+        case 4:
+            banditAttack(ui, player);
+            map[0] = "##D################";
+            map[1] = "#    #  #        H#";
+            map[2] = "##X####     #######";
+            map[3] = " #   X####     #  #";
+            map[4] = " ####    ####X##  #";
+            map[5] = "    ### X#       ##";
+            map[6] = "      #    # ##### ";
+            map[7] = "#######  ###   #   ";
+            map[8] = "#O    X      ###   ";
+            map[9] = "##############     ";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("Bandit", 70, 5, 20, 65);
+            break;
+
         default:
             map[0] = "============";
             map[1] = "YOU";
@@ -153,6 +169,10 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         }
         std::cout << key << std::endl;
         std::cout << controls << std::endl;
+        std::cout << "\nYour Stats:" << std::endl;
+        std::cout << "Health: " << ui.displayHealth(*player) << std::endl;
+        std::cout << "Level: " << player->getLvl() << std::endl;
+        std::cout << "Exp: " << player->getExp() << "/" << player->getNextLvl() << std::endl;
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){

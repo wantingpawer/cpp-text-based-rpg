@@ -132,4 +132,34 @@ void enterTheRealWorld(gameInterface ui, playableCharacter *player){
     MOVSay("Exactly! Now let's go!");
 }
 
+void banditAttack(gameInterface ui, playableCharacter *player){
+    clearScreen();
+    MOVSay("Where are you going?");
+    playerSay(player, "There was only 1 place to go");
+    MOVSay("Yeah... Fair enough");
+    playerSay(player, "So anyways, where does this road lead?");
+    MOVSay("To a bunch of bandits out to kill you");
+    playerSay(player, "To... what...");
+    MOVSay("Yeah, they want you dead");
+    playerSay(player, "Why?");
+    MOVSay("The last vict... associate of ours pissed them off a lot");
+    playerSay(player, "Could you have not told me before?");
+    MOVSay("Nope!");
+    playerSay(player, "Why not?");
+    MOVSay("Didn't wanna");
+    playerSay(player, "What.");
+    MOVSay("Anyways, ahead of the bandits, you'll find your way to a town");
+    MOVSay("Over there you can buy stuff with the money you earn from killing bandits");
+    playerSay(player, "What can I buy there?");
+    MOVSay("Health potions, other potions, other stuff, etc");
+    playerSay(player, "-_-");
+    MOVSay("What's wrong?");
+    playerSay(player, "Could you get any more broad?");
+    MOVSay("Nope!");
+    playerSay(player, "Just lea...", 1);
+    MOVSay("BANDIT!");
+    enemy bandit("Bandit", 70, 5, 20, 65, true);
+    ui.startAttack(player, bandit);
+}
+
 #endif // DIALOGUE
