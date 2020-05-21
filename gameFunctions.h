@@ -107,15 +107,39 @@ void useHealingPotion(playableCharacter *player){
     std::cout << "You have no healing potions!" << std::endl;
 }
 
+void useMaxHeal(playableCharacter *player){
+    if(player->inventory.maxHeal > 0){
+        player->inventory.maxHeal--;
+        player->setHp(player->getMaxHp());
+        std::cout << "You healed to max HP!" << std::endl;
+        return;
+    }
+    std::cout << "You have no max heal potions!" << std::endl;
+}
+
+void useLevelUp(playableCharacter *player){
+    if(player->inventory.levelUp > 0){
+        player->inventory.levelUp--;
+        int exp = player->getNextLvl();
+        player->gainExp(exp);
+        std::cout << "You gained " << exp << " experience!" << std::endl;
+    }
+    std::cout << "You have no level up potions" << std::endl;
+}
+
 void selectInventoryItem(playableCharacter *player){
     clearScreenPromptless();
     int input;
     std::cout << "1) Healing Potions: " << player->inventory.healingPotions << std::endl;
-    std::cout << "2) Cancel (if in battle you'll lose your move)" << std::endl;
+    std::cout << "2) Max heal Potions: " << player->inventory.maxHeal << std::endl;
+    std::cout << "3) Level up Potions: " << player->inventory.levelUp << std::endl;
+    std::cout << "4) Cancel (if in battle you'll lose your move)" << std::endl;
     std::cin >> input;
     switch(input){
         case 1: useHealingPotion(player); break;
-        case 2: break;
+        case 2: useMaxHeal(player); break;
+        case 3: useLevelUp(player); break;
+        case 4: break;
     }
 }
 

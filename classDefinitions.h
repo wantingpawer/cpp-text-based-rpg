@@ -58,6 +58,8 @@ public:
     playableCharacter(int hp, int evasiveness, std::string attack);
     struct inventoryStruct{
         int healingPotions = 1;
+        int maxHeal = 0;
+        int levelUp = 0;
     };
     inventoryStruct inventory;
 

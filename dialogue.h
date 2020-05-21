@@ -142,7 +142,10 @@ void banditAttack(gameInterface ui, playableCharacter *player){
     playerSay(player, "To... what...");
     MOVSay("Yeah, they want you dead");
     playerSay(player, "Why?");
-    MOVSay("The last vict... associate of ours pissed them off a lot");
+    MOVSay("Here, take a MAXIMUM healing potion! You'll need it.");
+    player->inventory.maxHeal++;
+    playerSay(player, "I asked why...");
+    MOVSay("Oh, sorry, I didn't hear! The last vict... associate of ours pissed them off a lot");
     playerSay(player, "Could you have not told me before?");
     MOVSay("Nope!");
     playerSay(player, "Why not?");
