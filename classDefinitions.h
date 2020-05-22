@@ -48,6 +48,8 @@ public:
     inline int getLives();
     inline int getExp();
     inline int getNextLvl();
+    inline void setClass(std::string newClass);
+    std::string getClass();
     void gainExp(int exp);
     inline void setLives(int lives);
     inline void setHp(int hp);
@@ -55,7 +57,7 @@ public:
     void setName(std::string name);
     std::string getName();
     bool tryToEscape();
-    playableCharacter(int hp, int evasiveness, std::string attack);
+    playableCharacter(int hp, int evasiveness, std::string attack, std::string initialClass);
     struct inventoryStruct{
         int healingPotions = 1;
         int maxHeal = 0;
@@ -66,6 +68,7 @@ public:
 private:
     std::string attack;
     std::string name;
+    std::string playerClass;
     int lives;
     int exp;
     int nextLvl;

@@ -48,8 +48,7 @@ void beginning(gameInterface ui, playableCharacter *player){
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
     MOVSay("Let's not dwell on past events. Here's a living test dummy for you to fight with!\n");
     enemy dummy("Test Dummy", 10, 0, 0, 10, true);
-    int won = ui.startAttack(player, dummy);
-    switch(won){
+    switch(ui.startAttack(player, dummy)){
     case 0:
         MOVSay("Well... let's pretend that didn't happen!");
         player->setLives(2);
@@ -74,16 +73,38 @@ void beginning(gameInterface ui, playableCharacter *player){
     playerSay(player, "THERE ARE CLOWNS TOO!?");
     MOVSay("Oh, yeah, they're epic! Lemme show you one!");
     enemy clown("clown", 10000, 500, 100, 10000, true);
-    ui.startAttack(player, clown);
-    MOVSay("HA! DID YOU SEE YOUR DEAD FACE JUST THEN?");
-    playerSay(player, "How the hell am I still here? I thought I died");
-    MOVSay("Oh, yeah I forgot to say, you only have 2 lives.");
-    playerSay(player, "Wait, so I've only got 1 life left?");
-    MOVSay("That does make sense.");
-    playerSay(player, "Bloody hell.");
-    MOVSay("You're acting like I killed someone!");
-    playerSay(player, "I wonder why...");
-    MOVSay("Anyways, I'll let you into the training room now!");
+    switch(ui.startAttack(player, clown)){
+    case 0:
+        MOVSay("HA! DID YOU SEE YOUR DEAD FACE JUST THEN?");
+        playerSay(player, "How the hell am I still here? I thought I died");
+        MOVSay("Oh, yeah I forgot to say, you only have 2 lives.");
+        playerSay(player, "Wait, so I've only got 1 life left?");
+        MOVSay("That does make sense.");
+        playerSay(player, "Bloody hell.");
+        MOVSay("You're acting like I killed someone!");
+        playerSay(player, "I wonder why...");
+        MOVSay("Anyways, I'll let you into the training room now!");
+        break;
+
+    case 1:
+        MOVSay("Did you just... sorry... what...");
+        playerSay(player, "That clown sure did put up a fight!");
+        MOVSay("Yeah...");
+        playerSay(player, "Something up?");
+        MOVSay("Let's just go to the training room");
+
+    case 2:
+        MOVSay("Fine, if you're gonna run, I'll take the life from you myself!");
+        playerSay(player, "What, you're gonna kill me?");
+        MOVSay("Yeah! Clown didn't so I will!");
+        player->setLives(player->getLives() - 1);
+        playerSay(player, "OW! How am I not dead!");
+        MOVSay("You're not dead because you get 2 lives!");
+        playerSay(player, "So now I have one?");
+        MOVSay("Yep!");
+        playerSay(player, "Just great...");
+        MOVSay("I'm glad you're happy! Let's move onto the training room now!");
+    }
     displayMap(1, player, ui);
 }
 
@@ -144,6 +165,7 @@ void banditAttack(gameInterface ui, playableCharacter *player){
     playerSay(player, "Why?");
     MOVSay("Here, take a MAXIMUM healing potion! You'll need it.");
     player->inventory.maxHeal++;
+    player->inventory.healingPotions++;
     playerSay(player, "I asked why...");
     MOVSay("Oh, sorry, I didn't hear! The last vict... associate of ours pissed them off a lot");
     playerSay(player, "Could you have not told me before?");

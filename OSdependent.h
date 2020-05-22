@@ -171,6 +171,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         std::cout << controls << std::endl;
         std::cout << "\nYour Stats:" << std::endl;
         std::cout << "Health: " << ui.displayHealth(*player) << std::endl;
+        std::cout << "Class: " << player->getClass() << std::endl;
         std::cout << "Level: " << player->getLvl() << std::endl;
         std::cout << "Exp: " << player->getExp() << "/" << player->getNextLvl() << std::endl;
         system("PAUSE > NUL");

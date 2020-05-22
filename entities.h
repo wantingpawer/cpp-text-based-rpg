@@ -33,7 +33,7 @@ bool playableCharacter::tryToEscape() {
 /*The playable character constructor
 sets all of the values required by the
 entity class, which can be found above.*/
-playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack){
+playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack, std::string initialClass){
     #ifdef DEBUG
     std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
     pause(false);
@@ -46,10 +46,17 @@ playableCharacter::playableCharacter(int hp, int evasiveness, std::string attack
     this -> attack = attack;
     this -> lives = 2;
     this -> nextLvl = 100;
+    this -> playerClass = initialClass;
     createAttack();
 }
 
 int playableCharacter::getLives() {return this -> lives;}
+
+void playableCharacter::setClass(std::string newClass){
+    this -> playerClass = newClass;
+}
+
+std::string playableCharacter::getClass() { return this -> playerClass; }
 
 void playableCharacter::setLives(int lives) {
     #ifdef DEBUG
@@ -72,7 +79,7 @@ void playableCharacter::createAttack(){
     }else if(attack == "Crushing_strike"){
         fight.setParams(10, 40, 40);
     }else if(attack == "Crossbow"){
-        fight.setParams(5, 10, 2);
+        fight.setParams(15, 20, 2);
     }
 }
 
@@ -90,6 +97,7 @@ void playableCharacter::testLevelUp(){
         this -> lvl++;
         this -> exp -= this -> nextLvl;
         this -> nextLvl *= 1.05;
+        this -> maxhp *= 1.05;
         std::cout << "You need " << nextLvl - exp << " exp to level up again!" << std::endl;
         clearScreen();
     }

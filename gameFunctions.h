@@ -16,7 +16,7 @@ playableCharacter start(gameInterface ui){
 
     int hp;
     int evasiveness;
-    std::string attack;
+    std::string attack, initialClass;
 
     std::cout << "============\n"
               << "Un-Named RPG\n"
@@ -34,18 +34,21 @@ playableCharacter start(gameInterface ui){
             hp = 100;
             evasiveness = 25;
             attack = "Crossbow";
+            initialClass = "Archer";
             break;
 
         case 2:
             hp = 150;
             evasiveness = 1;
             attack = "Crushing_strike";
+            initialClass = "Knight";
             break;
 
         case 3:
             hp = 75;
             evasiveness = 10;
             attack = "Fireball";
+            initialClass = "Mage";
             break;
 
         default:
@@ -53,7 +56,7 @@ playableCharacter start(gameInterface ui){
             exit(-1);
     }
 
-    playableCharacter player(hp, evasiveness, attack);
+    playableCharacter player(hp, evasiveness, attack, initialClass);
 
     //sets the name of the player
     player.setName(name);
@@ -86,7 +89,8 @@ int classSelection(){
 void viewStats(playableCharacter *player, gameInterface ui){
     std::cout << "Your HP is " << ui.displayHealth(*player)
               << "\nYour evasiveness is " << player->getEvasiveness()
-              << "\nYour attack is " << player->getAttack() << std::endl;
+              << "\nYour attack is " << player->getAttack()
+              << "\nYour class is " << player->getClass() << std::endl;
     clearScreen();
 }
 
