@@ -1,5 +1,4 @@
 #ifndef ATTACKS
-#include "classDefinitions.h"
 #define ATTACKS
 
 /*This calculates the damage done. If

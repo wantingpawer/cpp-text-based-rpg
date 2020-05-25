@@ -1,6 +1,6 @@
 #ifndef GAMEFUNCTIONS
 #define GAMEFUNCTIONS
-#include "entities.h"
+
 int classSelection();
 void viewStats(playableCharacter *player, gameInterface ui);
 
@@ -132,7 +132,7 @@ void useLevelUp(playableCharacter *player){
 }
 
 void selectInventoryItem(playableCharacter *player){
-    clearScreenPromptless();
+    __CLEARSCREENPROMPTLESS();
     int input;
     std::cout << "1) Healing Potions: " << player->inventory.healingPotions << std::endl;
     std::cout << "2) Max heal Potions: " << player->inventory.maxHeal << std::endl;

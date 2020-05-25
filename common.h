@@ -8,9 +8,11 @@
 #include <chrono>
 #include <thread>
 #include <array>
+
 #ifdef WINDOWS
 #include "windows.h"
 #endif // WINDOWS
+
 #include "classDefinitions.h"
 #include "dialogue.h"
 #include "OSdependent.h"

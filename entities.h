@@ -1,6 +1,5 @@
 #ifndef ENTITY
 #define ENTITY
-#include "attacks.h"
 
 //Simple getters for classes that inherit from entity
 entity::takeDmg(int dmg){

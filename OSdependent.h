@@ -1,6 +1,12 @@
 #ifndef OSDEPENDENT
 #define OSDEPENDENT
 
+#ifdef WINDOWS
+#define __CLEARSCREENPROMPTLESS(){system("CLS");}
+#elif LINUX
+#define __CLEARSCREENPROMPTLESS(){system("clear");}
+#endif // WINDOWS
+
 //functions from other files
 void selectInventoryItem(playableCharacter *player);
 
@@ -33,17 +39,6 @@ inline void clearScreen(){
 
     #endif // LINUX
 }
-
-inline void clearScreenPromptless(){
-
-    #ifdef WINDOWS
-    system("CLS");
-    #endif // WINDOWS
-    #ifdef LINUX
-    system("clear");
-    #endif // LINUX
-}
-
 
 /*This looks surprisingly cryptic for what it is. Basically just pauses the execution until a key is pressed,
 and the boolean parameter is just to specify whether you want a prompt to show up or not for the pause*/
