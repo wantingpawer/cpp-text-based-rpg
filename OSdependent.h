@@ -1,17 +1,9 @@
 #ifndef OSDEPENDENT
 #define OSDEPENDENT
 
-#ifdef WINDOWS
-#define __CLEARSCREENPROMPTLESS(){system("CLS");}
-#elif LINUX
-#define __CLEARSCREENPROMPTLESS(){system("clear");}
-#endif // WINDOWS
-
 //functions from other files
 void selectInventoryItem(playableCharacter *player);
-
-std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level);
+void shop(playableCharacter *player);
 
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
@@ -63,6 +55,41 @@ inline void pause(bool showPromp){
     std::cin.ignore(1);
     std::getline(std::cin, cont);
     #endif // LINUX
+}
+
+
+inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
+    clearScreen();
+    opponent.appearanceMessage();
+    return ui.startAttack(player, opponent);
+}
+
+//0 = up, 1 = right, 2 = down, 3 = left for the direction
+std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
+                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level){
+    //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
+    if(map[y][x] == '#') return map;
+    else if(map[y][x] == 'D') displayMap(++level, player, ui);
+    else if(map[y][x] == 'X') {
+        int won = startBattle(onHitX, player, ui);
+        if(!won || won == 2) return map;
+    }
+    else if(map[y][x] == 'H') {
+        player->setHp(player->getMaxHp());
+        std::cout << "Here, take your health back!" << std::endl;
+        pause(false);
+        return map;
+    }
+    else if(map[y][x] == 'S'){ shop(player); return map; }
+    //changes the current location to the player, replaces old location with space
+    map[y][x] = 'O';
+    switch(direction){
+        case 0: map[y + 1][x] = ' '; break;
+        case 1: map[y][x - 1] = ' '; break;
+        case 2: map[y - 1][x] = ' '; break;
+        case 3: map[y][x + 1] = ' '; break;
+    }
+    return map;
 }
 
 void displayMap(int level, playableCharacter *player, gameInterface ui){
@@ -137,6 +164,23 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[9] = "##############     ";
             playerX = 1; playerY = 8;
             onHitX.setAttributes("Bandit", 70, 5, 20, 65);
+            break;
+
+        case 5:
+            cityOfTown(ui, player);
+            map[0] = "###############D###";
+            map[1] = "###               #";
+            map[2] = "##H   ### ### #####";
+            map[3] = "#     ### ### #####";
+            map[4] = "####  ###     #####";
+            map[5] = "#### ######## #####";
+            map[6] = "#### S####### #####";
+            map[7] = "#### ######## #####";
+            map[8] = "#O                #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999);
+            key += "S = Shop\n";
             break;
 
         default:
@@ -255,38 +299,4 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     #endif // LINUX
 }
 
-inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
-    clearScreen();
-    opponent.appearanceMessage();
-    return ui.startAttack(player, opponent);
-}
-
-//0 = up, 1 = right, 2 = down, 3 = left for the direction
-std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level){
-    //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
-    if(map[y][x] == '#') return map;
-    if(map[y][x] == 'D') displayMap(++level, player, ui);
-    if(map[y][x] == 'H') {
-        player->setHp(player->getMaxHp());
-        std::cout << "Here, take your health back!" << std::endl;
-        pause(false);
-        return map;
-    }
-    if(map[y][x] == 'X') {
-        int won = startBattle(onHitX, player, ui);
-        if(!won || won == 2) return map;
-    }
-    //changes the current location to the player, replaces old location with space
-    map[y][x] = 'O';
-    switch(direction){
-        case 0: map[y + 1][x] = ' '; break;
-        case 1: map[y][x - 1] = ' '; break;
-        case 2: map[y - 1][x] = ' '; break;
-        case 3: map[y][x + 1] = ' '; break;
-    }
-    return map;
-}
-
 #endif // OSDEPENDENT
-

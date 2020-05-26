@@ -143,7 +143,23 @@ void selectInventoryItem(playableCharacter *player){
         case 1: useHealingPotion(player); break;
         case 2: useMaxHeal(player); break;
         case 3: useLevelUp(player); break;
-        case 4: break;
+        default: break;
+    }
+}
+
+void shop(playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    int input;
+    std::cout << "1) Buy a healing potion [$5]" << std::endl;
+    std::cout << "2) Buy a max heal potion [$15]" << std::endl;
+    std::cout << "3) Buy a level up potion [$25]" << std::endl;
+    std::cout << "4) Cancel" << std::endl;
+    std::cin >> input;
+    switch(input){
+        case 1: player->inventory.healingPotions += 1; break;
+        case 2: player->inventory.maxHeal += 1; break;
+        case 3: player->inventory.levelUp += 1; break;
+        default: break;
     }
 }
 

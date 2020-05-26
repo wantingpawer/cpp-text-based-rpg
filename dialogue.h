@@ -187,4 +187,25 @@ void banditAttack(gameInterface ui, playableCharacter *player){
     ui.startAttack(player, bandit);
 }
 
+void cityOfTown(gameInterface ui, playableCharacter *player){
+    playerSay(player, "Damn, they almost got us");
+    MOVSay("What almost got what?");
+    playerSay(player, "Nevermind. Wait... How're we here already?");
+    MOVSay("How are we where already?");
+    playerSay(player, "You're pretty dim for an omnipotent omnipresent being");
+    MOVSay("Yeah, we don't emit light. Not within the visible spectrum at least");
+    playerSay(player, "Wait... What kind of light do you emit then?");
+    MOVSay("Who said I emit light?");
+    playerSay(player, "You just did");
+    __CLEARSCREENPROMPTLESS();
+    MOVSay("Hello! We were just talking! We're finally here in the town! We're in the city of town!");
+    playerSay(player, "But... We were...", 1);
+    MOVSay("We were just fighting bandits!");
+    playerSay(player, "Okay, whatever, so what can I do here?");
+    MOVSay("You can recover health, you can buy items, you can just generally prepare for later on");
+    playerSay(player, "What's happening later on?");
+    MOVSay("DRAGON!");
+    playerSay(player, "Oh. Yeah.");
+}
+
 #endif // DIALOGUE

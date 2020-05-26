@@ -10,6 +10,12 @@
 #include <array>
 
 #ifdef WINDOWS
+#define __CLEARSCREENPROMPTLESS(){system("CLS");}
+#elif LINUX
+#define __CLEARSCREENPROMPTLESS(){system("clear");}
+#endif // WINDOWS
+
+#ifdef WINDOWS
 #include "windows.h"
 #endif // WINDOWS
 
