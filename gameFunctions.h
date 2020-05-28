@@ -147,19 +147,34 @@ void selectInventoryItem(playableCharacter *player){
     }
 }
 
+bool checkMoney(float price, playableCharacter *player){
+    if(price > player->inventory.money){
+        std::cout << "You is deficient in the funds!" << std::endl;
+        return false;
+    }else{
+        std::cout << "My money! Here take your stupid item!" << std::endl;
+        player->inventory.money -= price;
+        return true;
+    }
+}
+
 void shop(playableCharacter *player){
     __CLEARSCREENPROMPTLESS();
-    int input;
-    std::cout << "1) Buy a healing potion [$5]" << std::endl;
-    std::cout << "2) Buy a max heal potion [$15]" << std::endl;
-    std::cout << "3) Buy a level up potion [$25]" << std::endl;
-    std::cout << "4) Cancel" << std::endl;
-    std::cin >> input;
-    switch(input){
-        case 1: player->inventory.healingPotions += 1; break;
-        case 2: player->inventory.maxHeal += 1; break;
-        case 3: player->inventory.levelUp += 1; break;
-        default: break;
+    bool showMenu = true;
+    while(showMenu){
+        int input;
+        std::cout << "1) Buy a healing potion [$5]" << std::endl;
+        std::cout << "2) Buy a max heal potion [$15]" << std::endl;
+        std::cout << "3) Buy a level up potion [$25]" << std::endl;
+        std::cout << "4) Cancel" << std::endl;
+        std::cin >> input;
+        switch(input){
+            case 1: if(checkMoney(5, player)) player->inventory.healingPotions += 1; break;
+            case 2: if(checkMoney(15, player)) player->inventory.maxHeal += 1; break;
+            case 3: if(checkMoney(25, player)) player->inventory.levelUp += 1; break;
+            default: showMenu = false; break;
+        }
+        clearScreen();
     }
 }
 

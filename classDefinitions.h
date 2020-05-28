@@ -45,6 +45,15 @@ protected:
 
 class playableCharacter : public entity{
 public:
+
+    struct inventoryStruct{
+        int healingPotions = 1;
+        int maxHeal = 0;
+        int levelUp = 0;
+        float money = 0.0;
+    };
+    inventoryStruct inventory;
+
     inline int getLives();
     inline int getExp();
     inline int getNextLvl();
@@ -58,12 +67,6 @@ public:
     std::string getName();
     bool tryToEscape();
     playableCharacter(int hp, int evasiveness, std::string attack, std::string initialClass);
-    struct inventoryStruct{
-        int healingPotions = 1;
-        int maxHeal = 0;
-        int levelUp = 0;
-    };
-    inventoryStruct inventory;
 
 private:
     std::string attack;
@@ -89,16 +92,18 @@ private:
 
 class enemy : public entity{
 public:
-    enemy(std::string type, int hp, int lvl, int evasiveness, int exp, bool doAppearance);
-    enemy(std::string type, int hp, int lvl, int exp, int evasiveness);
+    enemy(std::string type, int hp, int lvl, int evasiveness, int exp, float reward, bool doAppearance);
+    enemy(std::string type, int hp, int lvl, int exp, int evasiveness, float reward);
     enemy();
     inline int getExp();
-    void setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp);
+    void setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp, float reward);
     std::string getType();
     void appearanceMessage();
+    float calculateReward();
 
 private:
     std::string type;
+    float reward;
     //Enemies have experience because that's what's given to a player for killing the enemy
     int exp;
 };

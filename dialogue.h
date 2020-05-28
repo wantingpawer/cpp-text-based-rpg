@@ -47,7 +47,7 @@ void beginning(gameInterface ui, playableCharacter *player){
            3);
     playerSay(player, "Kidnapping? Explains the chloroform bottle next to me. Also what dragon?");
     MOVSay("Let's not dwell on past events. Here's a living test dummy for you to fight with!\n");
-    enemy dummy("Test Dummy", 10, 0, 0, 10, true);
+    enemy dummy("Test Dummy", 10, 0, 0, 10, 1.5f, true);
     switch(ui.startAttack(player, dummy)){
     case 0:
         MOVSay("Well... let's pretend that didn't happen!");
@@ -72,7 +72,7 @@ void beginning(gameInterface ui, playableCharacter *player){
     MOVSay("God, someone isn't happy! Just wait till we get to the clowns");
     playerSay(player, "THERE ARE CLOWNS TOO!?");
     MOVSay("Oh, yeah, they're epic! Lemme show you one!");
-    enemy clown("clown", 10000, 500, 100, 10000, true);
+    enemy clown("clown", 10000, 500, 100, 10000, 100, true);
     switch(ui.startAttack(player, clown)){
     case 0:
         MOVSay("HA! DID YOU SEE YOUR DEAD FACE JUST THEN?");
@@ -183,7 +183,7 @@ void banditAttack(gameInterface ui, playableCharacter *player){
     MOVSay("Nope!");
     playerSay(player, "Just lea...", 1);
     MOVSay("BANDIT!");
-    enemy bandit("Bandit", 70, 5, 20, 65, true);
+    enemy bandit("Bandit", 70, 5, 20, 65, 4,  true);
     ui.startAttack(player, bandit);
 }
 

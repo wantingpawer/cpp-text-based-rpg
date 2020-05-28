@@ -115,7 +115,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#          #      D";
             map[9] = "###################";
             playerX = 1; playerY = 1;
-            onHitX.setAttributes("Training Dummy", 50, 0, 0, 35);
+            onHitX.setAttributes("Training Dummy", 50, 0, 0, 35, 3);
             break;
         case 2:
             theEmptyRoom(ui, player);
@@ -130,7 +130,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("WALL", 250, -10, 0, 100);
+            onHitX.setAttributes("WALL", 250, -10, 0, 100, 0.5);
             break;
 
         case 3:
@@ -146,7 +146,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999);
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
             key += "H = Health Stop\n";
             break;
 
@@ -163,7 +163,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O    X      ###   ";
             map[9] = "##############     ";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("Bandit", 70, 5, 20, 65);
+            onHitX.setAttributes("Bandit", 70, 5, 20, 65, 4);
             break;
 
         case 5:
@@ -179,7 +179,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[8] = "#O                #";
             map[9] = "###################";
             playerX = 1; playerY = 8;
-            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999);
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
             key += "S = Shop\n";
             break;
 
@@ -213,6 +213,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         std::cout << "Class: " << player->getClass() << std::endl;
         std::cout << "Level: " << player->getLvl() << std::endl;
         std::cout << "Exp: " << player->getExp() << "/" << player->getNextLvl() << std::endl;
+        std::cout << "Monies: " << player->inventory.money << std::endl;
         system("PAUSE > NUL");
 
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){

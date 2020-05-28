@@ -62,8 +62,11 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
         }else died(player);
     }else{
         int gained = opponent.getExp();
+        float receivedCash = opponent.calculateReward();
+        std::cout << "You received " << receivedCash << " money!" << std::endl;
         std::cout << "You gained " << gained << " experience!" << std::endl;
         player->gainExp(gained);
+        player->inventory.money += receivedCash;
     }
     clearScreen();
     return won; //0 if lost,  1 if won

@@ -104,7 +104,7 @@ void playableCharacter::testLevelUp(){
 /*The enemy constructor sets all of the values required
 by the entity class, which can be found above. It can also
 use the appearance message*/
-enemy::enemy(std::string type, int hp, int lvl, int evasiveness, int exp, bool doAppearance){
+enemy::enemy(std::string type, int hp, int lvl, int evasiveness, int exp, float reward, bool doAppearance){
     #ifdef DEBUG
     std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
     pause(false);
@@ -115,11 +115,12 @@ enemy::enemy(std::string type, int hp, int lvl, int evasiveness, int exp, bool d
     this -> lvl = lvl;
     this -> evasiveness = evasiveness;
     this -> exp = exp;
+    this -> reward = reward;
     if(doAppearance) appearanceMessage();
 }
 
 //Same thing as above but without doAppearance
-enemy::enemy(std::string type, int hp, int lvl, int exp, int evasiveness){
+enemy::enemy(std::string type, int hp, int lvl, int exp, int evasiveness, float reward){
     #ifdef DEBUG
     std::clog << "[DEBUG] ENTITY CREATED" << std::endl;
     pause(false);
@@ -130,6 +131,7 @@ enemy::enemy(std::string type, int hp, int lvl, int exp, int evasiveness){
     this -> lvl = lvl;
     this -> exp = exp;
     this -> evasiveness = evasiveness;
+    this -> reward = reward;
 }
 enemy::enemy(){
     #ifdef DEBUG
@@ -144,13 +146,14 @@ enemy::enemy(){
     this -> exp = -99999;
 }
 
-void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp){
+void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp, float reward){
     this -> type = type;
     this -> maxhp = hp;
     this -> hp = hp;
     this -> lvl = lvl;
     this -> evasiveness = evasiveness;
     this -> exp = exp;
+    this -> reward = reward;
 }
 
 int enemy::getExp(){return this -> exp;}
@@ -159,6 +162,10 @@ std::string enemy::getType(){
     return type;
 }
 
+float enemy::calculateReward(){
+    float multiplier = static_cast<float>(rand() % 20) / 10;
+    return reward * multiplier;
+}
 
 void enemy::appearanceMessage(){
     std::cout << "A wild level " << lvl  << " " << type << " has appeared!" << std::endl;
