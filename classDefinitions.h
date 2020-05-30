@@ -1,6 +1,13 @@
 #ifndef CLASSDEF
 #define CLASSDEF
 
+/*
+Everything here is just to define all the classes being
+used in the program. This is so that every class knows the
+exact memory layout of every other class and can therefore
+use them in their own class members
+*/
+
 class entity;
 class base_atk;
 class basic_atk;
@@ -46,6 +53,7 @@ protected:
 class playableCharacter : public entity{
 public:
 
+    //There's probably a better way to do this
     struct inventoryStruct{
         int healingPotions = 1;
         int maxHeal = 0;

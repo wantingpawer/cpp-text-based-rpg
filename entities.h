@@ -146,6 +146,7 @@ enemy::enemy(){
     this -> exp = -99999;
 }
 
+//This is a way to add the attributes of the enemy after creating it, rather than in the constructor
 void enemy::setAttributes(std::string type, int hp, int lvl, int evasiveness, int exp, float reward){
     this -> type = type;
     this -> maxhp = hp;

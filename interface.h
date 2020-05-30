@@ -53,16 +53,23 @@ int gameInterface::startAttack(playableCharacter *player, enemy opponent){
     player->getHp() <= 0 ? won = 0 : won = 1;
     std::cout << (won ? "You" : opponent.getType()) << " won the battle!" << std::endl;
     if(!won){
+        //Player loses a life
         int lives = player->getLives();
         player->setLives(--lives);
+
+        //Notifies player of remaining lives (if any)
         std::string lifeOrLives = lives == 1 ? " life" : " lives";
         std::cout << "You have " << lives << lifeOrLives << " remaining!" << std::endl;
         if(lives > 0){
+            //if has lives, set HP to max again
             player->setHp(player->getMaxHp());
-        }else died(player);
+        }else died(player); // if no lives, end the game
     }else{
+        //Get the experience and money gained from winning
         int gained = opponent.getExp();
         float receivedCash = opponent.calculateReward();
+
+        //Notify the user and give them the exp and money
         std::cout << "You received " << receivedCash << " money!" << std::endl;
         std::cout << "You gained " << gained << " experience!" << std::endl;
         player->gainExp(gained);

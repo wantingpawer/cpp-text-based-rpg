@@ -59,6 +59,7 @@ inline void pause(bool showPromp){
 
 
 inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
+    //Clears screen, does the appearance message and starts the battle
     clearScreen();
     opponent.appearanceMessage();
     return ui.startAttack(player, opponent);
@@ -74,6 +75,7 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
         int won = startBattle(onHitX, player, ui);
         if(!won || won == 2) return map;
     }
+    //H and S are the same as above, just that they're introduced later in the game
     else if(map[y][x] == 'H') {
         player->setHp(player->getMaxHp());
         std::cout << "Here, take your health back!" << std::endl;
@@ -101,7 +103,8 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     std::string key = "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n";
     std::string controls = "Controls:\nWASD to move\ni for inventory";
 
-    //Just sets the level based on the level provided to the function
+    /*Just sets the level based on the level provided to the function. Also
+    sets the player X and Y, and the enemy type on that map*/
     switch(level){
         case 1:
             map[0] = "###################";
@@ -197,11 +200,12 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             playerX = 100; playerY = 100;
     }
 
+    //I might eventually have something that turns this off (ignore this if I already have)
     bool running = true;
     #ifdef WINDOWS
 
     while(running == true){
-        //prints out the map
+        //prints out the map and information about the player
         system("CLS");
         for(int i = 0; i < 10; i++){
             std::cout << map[i] << std::endl;
@@ -214,8 +218,11 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         std::cout << "Level: " << player->getLvl() << std::endl;
         std::cout << "Exp: " << player->getExp() << "/" << player->getNextLvl() << std::endl;
         std::cout << "Monies: " << player->inventory.money << std::endl;
+
+        //Pauses the program and redirects the message that it's paused into NUL
         system("PAUSE > NUL");
 
+        //Checks for the key pressed by the user
         if(GetAsyncKeyState(VK_UP) || GetAsyncKeyState(0x57)){
             std::array<std::string, 10> newMap = handleMove(playerX, playerY - 1, map, 0, onHitX, player, ui, level);
             if(newMap != map){

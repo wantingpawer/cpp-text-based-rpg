@@ -35,6 +35,13 @@ inline void MOVSay(std::string msg, int wait){
     sleep(wait);
 }
 
+/*
+All of these functions just make it so that there isn't a bunch of dialogue and stuff
+covering the code which handles the logic. It's here where everything in between dialogue
+also happens, just to simplify stuff and make it easier to tell where an error occured (i.e.
+if it happened during dialogue it's here, if it didn't it isn't)
+*/
+
 void beginning(gameInterface ui, playableCharacter *player){
     std::cout << "..." << std::endl;
     sleep(3);

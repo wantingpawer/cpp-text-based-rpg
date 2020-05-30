@@ -96,14 +96,17 @@ void viewStats(playableCharacter *player, gameInterface ui){
 
 void useHealingPotion(playableCharacter *player){
     if(player->inventory.healingPotions > 0){
+        //Remove 1 healing potion from player if there's any in the inventory
         player->inventory.healingPotions--;
         int maxHeal = 30;
         int minHeal = 20;
+        //Generate a random value within the range to heal the player with
         int heal = minHeal + (std::rand() % maxHeal - minHeal);
         int recovered = heal + (player->getLvl() * 10);
         std::cout << "You healed " << recovered << " HP!" << std::endl;
         recovered += player->getHp();
         if(recovered > player->getMaxHp()) recovered = player->getMaxHp();
+        //Set the HP to what the player should have recovered to
         player->setHp(recovered);
         std::cout << "You recovered to " << recovered << " HP!" << std::endl;
         return;
@@ -113,6 +116,7 @@ void useHealingPotion(playableCharacter *player){
 
 void useMaxHeal(playableCharacter *player){
     if(player->inventory.maxHeal > 0){
+        //Same as above but without the random value
         player->inventory.maxHeal--;
         player->setHp(player->getMaxHp());
         std::cout << "You healed to max HP!" << std::endl;
@@ -123,6 +127,7 @@ void useMaxHeal(playableCharacter *player){
 
 void useLevelUp(playableCharacter *player){
     if(player->inventory.levelUp > 0){
+        //Same kind of logic, it just adds the required experience to level up with
         player->inventory.levelUp--;
         int exp = player->getNextLvl();
         player->gainExp(exp);
@@ -133,6 +138,7 @@ void useLevelUp(playableCharacter *player){
 
 void selectInventoryItem(playableCharacter *player){
     __CLEARSCREENPROMPTLESS();
+    //A menu of sorts, which allows the user to pick an item, pretty self explanatory
     int input;
     std::cout << "1) Healing Potions: " << player->inventory.healingPotions << std::endl;
     std::cout << "2) Max heal Potions: " << player->inventory.maxHeal << std::endl;
@@ -147,6 +153,7 @@ void selectInventoryItem(playableCharacter *player){
     }
 }
 
+//A self explanatory function that returns true if the player has enough money, false if the player doesn't
 bool checkMoney(float price, playableCharacter *player){
     if(price > player->inventory.money){
         std::cout << "You is deficient in the funds!" << std::endl;
@@ -161,6 +168,7 @@ bool checkMoney(float price, playableCharacter *player){
 void shop(playableCharacter *player){
     __CLEARSCREENPROMPTLESS();
     bool showMenu = true;
+    //Same as above, except the menu doesn't go after an action except cancel
     while(showMenu){
         int input;
         std::cout << "1) Buy a healing potion [$5]" << std::endl;
