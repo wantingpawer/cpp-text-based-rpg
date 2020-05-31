@@ -97,6 +97,7 @@ void playableCharacter::testLevelUp(){
         this -> exp -= this -> nextLvl;
         this -> nextLvl *= 1.05;
         this -> maxhp *= 1.05;
+        this -> testLevelUp();
         std::cout << "You need " << nextLvl - exp << " exp to level up again!" << std::endl;
         clearScreen();
     }

@@ -1,8 +1,3 @@
-//#define NOSLEEP
-//#define DEBUG
-#define WINDOWS
-//#define LINUX
-
 #include "common.h"
 
 int main(){

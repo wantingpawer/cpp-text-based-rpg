@@ -4,6 +4,8 @@
 //functions from other files
 void selectInventoryItem(playableCharacter *player);
 void shop(playableCharacter *player);
+std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
+                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level);
 
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
@@ -55,43 +57,6 @@ inline void pause(bool showPromp){
     std::cin.ignore(1);
     std::getline(std::cin, cont);
     #endif // LINUX
-}
-
-
-inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
-    //Clears screen, does the appearance message and starts the battle
-    clearScreen();
-    opponent.appearanceMessage();
-    return ui.startAttack(player, opponent);
-}
-
-//0 = up, 1 = right, 2 = down, 3 = left for the direction
-std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
-                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level){
-    //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
-    if(map[y][x] == '#') return map;
-    else if(map[y][x] == 'D') displayMap(++level, player, ui);
-    else if(map[y][x] == 'X') {
-        int won = startBattle(onHitX, player, ui);
-        if(!won || won == 2) return map;
-    }
-    //H and S are the same as above, just that they're introduced later in the game
-    else if(map[y][x] == 'H') {
-        player->setHp(player->getMaxHp());
-        std::cout << "Here, take your health back!" << std::endl;
-        pause(false);
-        return map;
-    }
-    else if(map[y][x] == 'S'){ shop(player); return map; }
-    //changes the current location to the player, replaces old location with space
-    map[y][x] = 'O';
-    switch(direction){
-        case 0: map[y + 1][x] = ' '; break;
-        case 1: map[y][x - 1] = ' '; break;
-        case 2: map[y - 1][x] = ' '; break;
-        case 3: map[y][x + 1] = ' '; break;
-    }
-    return map;
 }
 
 void displayMap(int level, playableCharacter *player, gameInterface ui){
@@ -186,6 +151,21 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             key += "S = Shop\n";
             break;
 
+        case 6:
+            theBabyDragon(ui, player);
+            map[0] = "###################";
+            map[1] = "#       #     #####";
+            map[2] = "# #####   ### # ###";
+            map[3] = "#  # #####    #  ##";
+            map[4] = "##  ###  ### ######";
+            map[5] = "###    # #DX #  ###";
+            map[6] = "###### # ###   ####";
+            map[7] = "#        # # ######";
+            map[8] = "#O###### # ########";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("Baby Dragon", 300, 10, 0, 1000, 45);
+            break;
         default:
             map[0] = "============";
             map[1] = "YOU";

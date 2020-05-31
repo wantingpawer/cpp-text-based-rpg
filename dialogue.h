@@ -112,7 +112,7 @@ void beginning(gameInterface ui, playableCharacter *player){
         playerSay(player, "Just great...");
         MOVSay("I'm glad you're happy! Let's move onto the training room now!");
     }
-    displayMap(1, player, ui);
+    displayMap(__BEGINNINGLEVEL, player, ui);
 }
 
 void theEmptyRoom(gameInterface ui, playableCharacter *player){
@@ -195,6 +195,7 @@ void banditAttack(gameInterface ui, playableCharacter *player){
 }
 
 void cityOfTown(gameInterface ui, playableCharacter *player){
+    clearScreen();
     playerSay(player, "Damn, they almost got us");
     MOVSay("What almost got what?");
     playerSay(player, "Nevermind. Wait... How're we here already?");
@@ -213,6 +214,29 @@ void cityOfTown(gameInterface ui, playableCharacter *player){
     playerSay(player, "What's happening later on?");
     MOVSay("DRAGON!");
     playerSay(player, "Oh. Yeah.");
+}
+
+void theBabyDragon(gameInterface ui, playableCharacter *player){
+    clearScreen();
+    MOVSay("You know, we've already been to 2 towns and there's hardly been any action");
+    playerSay(player, "Hardly any action? We just fought a bunch of bandits after I got kidnapped!");
+    MOVSay("And killed by a clown");
+    playerSay(player, "Exactly! What do you mean hardly any action!");
+    MOVSay("Sorry, what I meant to say is that there are hardly any dragons");
+    playerSay(player, "Oh, yeah you did talk about the dragons before. If I can go kill them now am I done here?");
+    MOVSay("You're not ready");
+    playerSay(player, "Then why are you complaining?");
+    MOVSay("I didn't specify which dragon I was talking about");
+    playerSay(player, "Oh... oh no... where are we headed?");
+    MOVSay("To the nest of a baby dragon. You will go in, kill the baby dragon, and escape");
+    playerSay(player, "What am I escaping from?");
+    MOVSay("The big dragon which will almost certainly kill you if you're not careful!");
+    playerSay(player, "That's uh, great");
+    MOVSay("Yeah. When you've killed the baby fall through the middle of the nest, where I will find you");
+    playerSay(player, "Wait you're an actual thing, and not just a disembodied voice?");
+    MOVSay("Indeed");
+    playerSay(player, "Wow");
+    MOVSay("Anyways, we are here!");
 }
 
 #endif // DIALOGUE

@@ -9,8 +9,15 @@
 #include <thread>
 #include <array>
 
+//#define NOSLEEP
+//#define DEBUG
+#define WINDOWS
+//#define LINUX
+
+#define __BEGINNINGLEVEL 1
+
 #ifdef WINDOWS
-#define __CLEARSCREENPROMPTLESS(){system("CLS");}
+#define __CLEARSCREENPROMPTLESS(){system("CLS");} //Just a macro to clear the screen depending on the platform
 #elif LINUX
 #define __CLEARSCREENPROMPTLESS(){system("clear");}
 #endif // WINDOWS

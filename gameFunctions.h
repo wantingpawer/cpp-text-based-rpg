@@ -175,6 +175,7 @@ void shop(playableCharacter *player){
         std::cout << "2) Buy a max heal potion [$15]" << std::endl;
         std::cout << "3) Buy a level up potion [$25]" << std::endl;
         std::cout << "4) Cancel" << std::endl;
+        std::cout << "\nMonies: " << player->inventory.money << std::endl;
         std::cin >> input;
         switch(input){
             case 1: if(checkMoney(5, player)) player->inventory.healingPotions += 1; break;
@@ -184,6 +185,42 @@ void shop(playableCharacter *player){
         }
         clearScreen();
     }
+}
+
+inline int startBattle(enemy opponent, playableCharacter *player, gameInterface ui){
+    //Clears screen, does the appearance message and starts the battle
+    clearScreen();
+    opponent.appearanceMessage();
+    return ui.startAttack(player, opponent);
+}
+
+//0 = up, 1 = right, 2 = down, 3 = left for the direction
+std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
+                                       enemy onHitX, playableCharacter *player, gameInterface ui, int level){
+    //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
+    if(map[y][x] == '#') return map;
+    else if(map[y][x] == 'D') displayMap(++level, player, ui);
+    else if(map[y][x] == 'X') {
+        int won = startBattle(onHitX, player, ui);
+        if(!won || won == 2) return map;
+    }
+    //H and S are the same as above, just that they're introduced later in the game
+    else if(map[y][x] == 'H') {
+        player->setHp(player->getMaxHp());
+        std::cout << "Here, take your health back!" << std::endl;
+        pause(false);
+        return map;
+    }
+    else if(map[y][x] == 'S'){ shop(player); return map; }
+    //changes the current location to the player, replaces old location with space
+    map[y][x] = 'O';
+    switch(direction){
+        case 0: map[y + 1][x] = ' '; break;
+        case 1: map[y][x - 1] = ' '; break;
+        case 2: map[y - 1][x] = ' '; break;
+        case 3: map[y][x + 1] = ' '; break;
+    }
+    return map;
 }
 
 #endif // GAMEFUNCTIONS
