@@ -18,11 +18,6 @@ playableCharacter start(gameInterface ui){
     int evasiveness;
     std::string attack, initialClass;
 
-    std::cout << "============\n"
-              << "Un-Named RPG\n"
-              << "============"
-              << std::endl;
-
     std::string name;
     std::cout << "What is your name adventurer?" << std::endl;
     std::getline(std::cin, name);
