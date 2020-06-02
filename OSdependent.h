@@ -166,6 +166,23 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             playerX = 1; playerY = 8;
             onHitX.setAttributes("Baby Dragon", 300, 10, 0, 1000, 45);
             break;
+
+        case 7:
+            theGrandEscape(ui, player);
+            map[0] = "###############D###";
+            map[1] = "#  XX     X XX X  #";
+            map[2] = "#   XXXX X  XXXXX #";
+            map[3] = "#XXXX X   XXX   X #";
+            map[4] = "#   X XXXX XXX  X #";
+            map[5] = "#  XXX    X XXX XX#";
+            map[6] = "#XXXXXXXXXXXXXXXXX#";
+            map[7] = "#  X  XX XXX     X#";
+            map[8] = "#O XX  X    XXXX  #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("Dragon Eggs", 3, -1, 0, 5, 1);
+            break;
+
         default:
             map[0] = "============";
             map[1] = "YOU";

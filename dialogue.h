@@ -239,4 +239,24 @@ void theBabyDragon(gameInterface ui, playableCharacter *player){
     MOVSay("Anyways, we are here!");
 }
 
+void theGrandEscape(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    MOVSay("Congrats! You escaped!");
+    playerSay(player, "And what was the point of that?");
+    MOVSay("I was bored, wanted to see what would happen");
+    playerSay(player, "What if I died?");
+    MOVSay("Like the rest of them?");
+    playerSay(player, "What? Okay nevermind, where are you taking me now?");
+    MOVSay("Taking you? You have to escape this place first");
+    playerSay(player, "And how do I do that?");
+    MOVSay("You just leave");
+    playerSay(player, "Wait, it's that easy?");
+    MOVSay("Nope, you dropped all your money on the way down");
+    player->inventory.money = 0;
+    playerSay(player, "Dammit, but apart from that can I just leave?");
+    MOVSay("Well, uh, yeah, I guess");
+    playerSay(player, "Great, I guess");
+    MOVSay("Oh, there's also a sea of dragon eggs to get rid of");
+}
+
 #endif // DIALOGUE
