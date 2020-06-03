@@ -21,7 +21,8 @@ playableCharacter start(gameInterface ui){
     std::string name;
     std::cout << "What is your name adventurer?" << std::endl;
     std::getline(std::cin, name);
-
+    name.erase(std::remove(name.begin(), name.end(), '!'), name.end());
+    name.erase(std::remove(name.begin(), name.end(), '*'), name.end());
     clearScreen();
 
     switch(classSelection()){
@@ -216,6 +217,32 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
         case 3: map[y][x + 1] = ' '; break;
     }
     return map;
+}
+
+bool saveGame(playableCharacter *player, int level){
+    std::ofstream saveFile;
+    saveFile.open("save.unnamedgame");
+    if(!saveFile) return false;
+    try{
+        saveFile << level << ","
+                 << player->getName() << ","
+                 << player->getAttack() << ","
+                 << player->getHp() << ","
+                 << player->getMaxHp() << ","
+                 << player->getLvl() << ","
+                 << player->getEvasiveness() << ","
+                 << player->getClass() << ","
+                 << player->getLives() << ","
+                 << player->getExp() << ","
+                 << player->getNextLvl() << ",!"
+                 << player->inventory.healingPotions << ","
+                 << player->inventory.maxHeal << ","
+                 << player->inventory.levelUp << ","
+                 << player->inventory.money << "*" << std::endl;
+        return true;
+    }catch(...){
+        return false;
+    }
 }
 
 #endif // GAMEFUNCTIONS

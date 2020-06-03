@@ -7,6 +7,9 @@ void shop(playableCharacter *player);
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
                                        enemy onHitX, playableCharacter *player, gameInterface ui, int level);
 
+bool saveGame(playableCharacter *player, int level);
+
+
 /*This is a simple function that clears the screen
 based on what operating system used, since they're different
 for whatever reason*/
@@ -66,7 +69,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     int playerX, playerY;
     enemy onHitX;
     std::string key = "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n";
-    std::string controls = "Controls:\nWASD to move\ni for inventory";
+    std::string controls = "Controls:\nWASD to move\ni for inventory\np to save";
 
     /*Just sets the level based on the level provided to the function. Also
     sets the player X and Y, and the enemy type on that map*/
@@ -252,6 +255,17 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         if(GetAsyncKeyState(0x49)){
             selectInventoryItem(player);
             clearScreen();
+        }
+
+        if(GetAsyncKeyState(0x50)){
+            bool success = saveGame(player, level);
+            if(success){
+                std::cout << "Game saved successfully!" << std::endl;
+                pause(false);
+            }else{
+                std::cerr << "Game save failed!" << std::endl;
+                pause(false);
+            }
         }
     }
 

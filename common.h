@@ -2,6 +2,8 @@
 #define COMMON
 
 #include <iostream>
+#include <fstream>
+#include <algorithm>
 #include <string>
 #include <ctime>
 #include <cstdlib>
