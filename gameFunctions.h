@@ -21,8 +21,7 @@ playableCharacter start(gameInterface ui){
     std::string name;
     std::cout << "What is your name adventurer?" << std::endl;
     std::getline(std::cin, name);
-    name.erase(std::remove(name.begin(), name.end(), '!'), name.end());
-    name.erase(std::remove(name.begin(), name.end(), '*'), name.end());
+    name.erase(std::remove(name.begin(), name.end(), ','), name.end());
     clearScreen();
 
     switch(classSelection()){
@@ -234,15 +233,50 @@ bool saveGame(playableCharacter *player, int level){
                  << player->getClass() << ","
                  << player->getLives() << ","
                  << player->getExp() << ","
-                 << player->getNextLvl() << ",!"
+                 << player->getNextLvl() << ","
                  << player->inventory.healingPotions << ","
                  << player->inventory.maxHeal << ","
                  << player->inventory.levelUp << ","
-                 << player->inventory.money << "*" << std::endl;
+                 << player->inventory.money << std::endl;
         return true;
     }catch(...){
         return false;
     }
 }
+/*
+bool loadGame(){
+    std::ifstream loadFile;
+    std::vector<std::string> playerData;
+    loadFile.open("save.unnamedgame");
+    if(!loadFile) return false;
+    std::string loadedData;
+    loadFile >> loadedData;
+    std::size_t pos = 0;
+    try{
+        while ((pos = loadedData.find(",")) != std::string::npos) {
+            std::string data = loadedData.substr(0, pos);
+            playerData.push_back(data);
+            loadedData.erase(0, pos + 1);
+        }
+        playerData.push_back(loadedData);
 
+        //playableCharacter player(hp, evasiveness, attack, initialClass);
+        playableCharacter player(static_cast<int>(playerData[4]), static_cast<int>(playerData[6])
+                                 , playerData[2], playerData[7]);
+        player.setName(playerData[1]);
+        player.setLvl(playerData[0]);
+        player.setHp(playerData[3]);
+        player.setLives(playerData[8]);
+        player.setExp(playerData[9]);
+        player.setNextLvl(playerData[10]);
+        player.inventory.healingPotions = playerData[11];
+        player.inventory.healingPotions = playerData[12];
+        player.inventory.healingPotions = playerData[13];
+        player.inventory.healingPotions = playerData[14];
+        return true;
+    }catch(...){
+        return false;
+    }
+}
+*/
 #endif // GAMEFUNCTIONS

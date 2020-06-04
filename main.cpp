@@ -21,7 +21,7 @@ void mainMenu(gameInterface ui){
             break;
         }
         switch(input){
-            case 2: std::cout << "ERROR: This is WIP" << std::endl; break;
+            case 2: loadGame(); break;
             default : std::cout << "Invalid input" << std::endl; break;
         }
     }

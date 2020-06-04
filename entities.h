@@ -84,6 +84,9 @@ void playableCharacter::createAttack(){
 
 inline int playableCharacter::getExp(){ return exp; }
 inline int playableCharacter::getNextLvl(){ return nextLvl; }
+inline void playableCharacter::setLvl(int lvl){ this->lvl = lvl; }
+inline void playableCharacter::setNextLvl(int nextLvl){ this->nextLvl = nextLvl; }
+inline void playableCharacter::setExp(int exp){ this->exp = exp; }
 
 void playableCharacter::gainExp(int exp){
     this -> exp += exp;

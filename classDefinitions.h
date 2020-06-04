@@ -70,6 +70,9 @@ public:
     void gainExp(int exp);
     inline void setLives(int lives);
     inline void setHp(int hp);
+    inline void setExp(int exp);
+    inline void setNextLvl(int nextLvl);
+    inline void setLvl(int lvl);
     inline std::string getAttack();
     void setName(std::string name);
     std::string getName();
