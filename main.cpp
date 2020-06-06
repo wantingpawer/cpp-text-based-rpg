@@ -10,7 +10,7 @@ void mainMenu(gameInterface ui){
     bool validInput = false;
     while(!validInput){
         std::cout << "1) Start a new game" << std::endl;
-        std::cout << "2) Load a game (WIP)" << std::endl;
+        std::cout << "2) Load a game" << std::endl;
         std::cin >> input;
         if(input == 1){
             std::cin.clear();
@@ -21,7 +21,7 @@ void mainMenu(gameInterface ui){
             break;
         }
         switch(input){
-            case 2: loadGame(); break;
+            case 2: loadGame(ui); break;
             default : std::cout << "Invalid input" << std::endl; break;
         }
     }

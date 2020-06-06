@@ -218,7 +218,15 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
     return map;
 }
 
+void loadError(){
+    std::cerr << "Something went wrong whilst loading, execution terminating" << std::endl;
+    pause(true);
+    exit(-1);
+}
+
 bool saveGame(playableCharacter *player, int level){
+    std::cout << "Please note that you will have to restart the current level after loading" << std::endl;
+    pause(true);
     std::ofstream saveFile;
     saveFile.open("save.unnamedgame");
     if(!saveFile) return false;
@@ -243,40 +251,41 @@ bool saveGame(playableCharacter *player, int level){
         return false;
     }
 }
-/*
-bool loadGame(){
+
+void loadGame(gameInterface ui){
     std::ifstream loadFile;
-    std::vector<std::string> playerData;
+    std::vector<std::string> playerStrings;
+    std::vector<int> playerInts;
     loadFile.open("save.unnamedgame");
-    if(!loadFile) return false;
+    if(!loadFile) loadError();
     std::string loadedData;
     loadFile >> loadedData;
-    std::size_t pos = 0;
     try{
-        while ((pos = loadedData.find(",")) != std::string::npos) {
+        for(int i = 0; i < 14; i++){
+            std::size_t pos = loadedData.find(",");
             std::string data = loadedData.substr(0, pos);
-            playerData.push_back(data);
+            if(i == 1 || i == 2 || i == 7) playerStrings.push_back(data);
+            else playerInts.push_back(std::stoi(data));
             loadedData.erase(0, pos + 1);
         }
-        playerData.push_back(loadedData);
 
         //playableCharacter player(hp, evasiveness, attack, initialClass);
-        playableCharacter player(static_cast<int>(playerData[4]), static_cast<int>(playerData[6])
-                                 , playerData[2], playerData[7]);
-        player.setName(playerData[1]);
-        player.setLvl(playerData[0]);
-        player.setHp(playerData[3]);
-        player.setLives(playerData[8]);
-        player.setExp(playerData[9]);
-        player.setNextLvl(playerData[10]);
-        player.inventory.healingPotions = playerData[11];
-        player.inventory.healingPotions = playerData[12];
-        player.inventory.healingPotions = playerData[13];
-        player.inventory.healingPotions = playerData[14];
-        return true;
+        playableCharacter player((playerInts[2]), (playerInts[4]),
+                                 playerStrings[1], playerStrings[2]);
+        player.setName(playerStrings[0]);
+        player.setLvl(playerInts[3]);
+        player.setHp(playerInts[1]);
+        player.setLives(playerInts[5]);
+        player.setExp(playerInts[6]);
+        player.setNextLvl(playerInts[7]);
+        player.inventory.healingPotions = playerInts[8];
+        player.inventory.maxHeal = playerInts[9];
+        player.inventory.levelUp = playerInts[10];
+        player.inventory.money = std::stof(loadedData);
+        displayMap(playerInts[0], &player, ui);
     }catch(...){
-        return false;
+        loadError();
     }
 }
-*/
+
 #endif // GAMEFUNCTIONS

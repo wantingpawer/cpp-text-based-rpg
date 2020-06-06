@@ -73,6 +73,15 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
 
     /*Just sets the level based on the level provided to the function. Also
     sets the player X and Y, and the enemy type on that map*/
+
+    //This switch block is for adding things to key and control and stuff
+    switch(level){
+        case 3:
+            key += "H = Health Stop\n";
+        case 5:
+            key += "S = Shop\n";
+    }
+
     switch(level){
         case 1:
             map[0] = "###################";
@@ -118,7 +127,6 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[9] = "###################";
             playerX = 1; playerY = 8;
             onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
-            key += "H = Health Stop\n";
             break;
 
         case 4:
@@ -151,7 +159,6 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[9] = "###################";
             playerX = 1; playerY = 8;
             onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
-            key += "S = Shop\n";
             break;
 
         case 6:
