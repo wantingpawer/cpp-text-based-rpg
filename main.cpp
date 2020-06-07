@@ -12,9 +12,9 @@ void mainMenu(gameInterface ui){
         std::cout << "1) Start a new game" << std::endl;
         std::cout << "2) Load a game" << std::endl;
         std::cin >> input;
+        std::cin.clear();
+        std::cin.ignore(100, '\n');
         if(input == 1){
-            std::cin.clear();
-            std::cin.ignore(100, '\n');
             playableCharacter player = start(ui);
             beginning(ui, &player);
             validInput = true;

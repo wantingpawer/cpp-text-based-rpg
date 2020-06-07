@@ -71,6 +71,8 @@ int classSelection(){
 
     int choice;
     std::cin >> choice;
+    std::cin.clear();
+    std::cin.ignore(100, '\n');
     if(choice > 3 || choice < 1) {
         std::cout << "Invalid selection!" << std::endl;
         clearScreen();
@@ -218,7 +220,7 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
     return map;
 }
 
-void loadError(){
+inline void loadError(){
     std::cerr << "Something went wrong whilst loading, execution terminating" << std::endl;
     pause(true);
     exit(-1);
@@ -227,9 +229,15 @@ void loadError(){
 bool saveGame(playableCharacter *player, int level){
     std::cout << "Please note that you will have to restart the current level after loading" << std::endl;
     pause(true);
+
+    //Opens up the file for saving
     std::ofstream saveFile;
     saveFile.open("save.unnamedgame");
+
+    //Checks if it successfully opened, if not, it returns false to indicate error
     if(!saveFile) return false;
+
+    //Writes everything onto the file then flushes the buffer
     try{
         saveFile << level << ","
                  << player->getName() << ","
@@ -245,7 +253,7 @@ bool saveGame(playableCharacter *player, int level){
                  << player->inventory.healingPotions << ","
                  << player->inventory.maxHeal << ","
                  << player->inventory.levelUp << ","
-                 << player->inventory.money << std::endl;
+                 << player->inventory.money << std::flush;
         return true;
     }catch(...){
         return false;
