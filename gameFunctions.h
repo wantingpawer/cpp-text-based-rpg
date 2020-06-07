@@ -220,6 +220,7 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
     return map;
 }
 
+//this is just to make the code below easier to read (in the loadGame function)
 inline void loadError(){
     std::cerr << "Something went wrong whilst loading, execution terminating" << std::endl;
     pause(true);
@@ -254,28 +255,49 @@ bool saveGame(playableCharacter *player, int level){
                  << player->inventory.maxHeal << ","
                  << player->inventory.levelUp << ","
                  << player->inventory.money << std::flush;
+        //Return true at the end to indicate success
         return true;
+
+    //If there's any error, return false to indicate error
     }catch(...){
         return false;
     }
 }
 
 void loadGame(gameInterface ui){
+
+    //Create an ifstream object and two vectors, 1 for strings and the other for ints from the file
     std::ifstream loadFile;
     std::vector<std::string> playerStrings;
     std::vector<int> playerInts;
     loadFile.open("save.unnamedgame");
+
+    //If the file didn't open properly, call loadError() to indicate an error
     if(!loadFile) loadError();
+
+    //Load the data into the string loadedData
     std::string loadedData;
     loadFile >> loadedData;
     try{
         for(int i = 0; i < 14; i++){
+
+            //Find the position of a comma and take the substring from the beginning to it
             std::size_t pos = loadedData.find(",");
             std::string data = loadedData.substr(0, pos);
+
+            //If it's in the position of a string, add it to the strings vector, otherwise add it to the ints vector
             if(i == 1 || i == 2 || i == 7) playerStrings.push_back(data);
             else playerInts.push_back(std::stoi(data));
+
+            //Remove the read data and the comma proceeding it
             loadedData.erase(0, pos + 1);
         }
+
+
+        /* This whole block creates a playableCharacter player object        *
+         * and initialises it with data from the two vectors.                *
+         * It then fills in the other values based on everything else        *
+         * in the vectors, and then displays the map with the correct values */
 
         //playableCharacter player(hp, evasiveness, attack, initialClass);
         playableCharacter player((playerInts[2]), (playerInts[4]),
@@ -291,6 +313,8 @@ void loadGame(gameInterface ui){
         player.inventory.levelUp = playerInts[10];
         player.inventory.money = std::stof(loadedData);
         displayMap(playerInts[0], &player, ui);
+
+        //If there's an error, run loadError()
     }catch(...){
         loadError();
     }
