@@ -2,29 +2,38 @@
 #define GAMEFUNCTIONS
 
 int classSelection();
+void mainMenu();
 void viewStats(playableCharacter *player, gameInterface ui);
 
 void died(playableCharacter *player){
     std::cout << "And thus, the adventures of " << player->getName() << " are over." << std::endl;
     clearScreen();
-    exit(0);
+    mainMenu();
 }
 
+//this is the function that sets stuff up for the game
 playableCharacter start(gameInterface ui){
 
+    //seeds the random thing with the time (even though time is *slightly* predictable)
     std::srand((int) std::time(0));
 
+    //MOAR VARIABLES
     int hp;
     int evasiveness;
-    std::string attack, initialClass;
+    std::string attack, initialClass, name;
 
-    std::string name;
+    //Collecting private user data in order to sell to advertisers
     std::cout << "What is your name adventurer?" << std::endl;
     std::getline(std::cin, name);
+
+    //but no commas in the name
     name.erase(std::remove(name.begin(), name.end(), ','), name.end());
     clearScreen();
 
+    //Sets stuff according to other stuff
     switch(classSelection()){
+        /*more specifically, it asks the user for an input in classSelection and makes a decision
+        based on it*/
         case 1:
             hp = 100;
             evasiveness = 25;
@@ -46,6 +55,7 @@ playableCharacter start(gameInterface ui){
             initialClass = "Mage";
             break;
 
+        //if execution got here something went wrong
         default:
             std::cout << "Something went wrong! Ending process" << std::endl;
             exit(-1);
@@ -57,6 +67,7 @@ playableCharacter start(gameInterface ui){
     player.setName(name);
     std::cout << "Welcome " << player.getName() << "\n" << std::endl;
 
+    //Allow the user to see the stats, giving them no option to not see them because we're evil
     viewStats(&player, ui);
 
     return player;
@@ -69,16 +80,22 @@ int classSelection(){
           << "3) Mage\n"
           << std::endl;
 
+    //Needs more variables here
     int choice;
+
+    //Get the choice and do stuff in cin
     std::cin >> choice;
     std::cin.clear();
     std::cin.ignore(100, '\n');
+
+    //check input validity
     if(choice > 3 || choice < 1) {
         std::cout << "Invalid selection!" << std::endl;
         clearScreen();
         choice = classSelection();
     }
 
+    //if valid, return choice
     return choice;
 }
 

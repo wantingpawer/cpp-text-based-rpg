@@ -6,6 +6,10 @@ Everything here is just to define all the classes being
 used in the program. This is so that every class knows the
 exact memory layout of every other class and can therefore
 use them in their own class members
+
+Also I know I'm doing this very, very wrong
+
+Everything here is very, very wrong
 */
 
 class entity;
