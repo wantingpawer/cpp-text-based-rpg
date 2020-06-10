@@ -8,6 +8,7 @@ std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10>
                                        enemy onHitX, playableCharacter *player, gameInterface ui, int level);
 
 bool saveGame(playableCharacter *player, int level);
+void pauseMenu(gameInterface ui, playableCharacter *player);
 
 
 /*This is a simple function that clears the screen
@@ -69,7 +70,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     int playerX, playerY;
     enemy onHitX;
     std::string key = "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n";
-    std::string controls = "Controls:\nWASD to move\ni for inventory\np to save";
+    std::string controls = "Controls:\nWASD to move\ni for inventory\np to save\nESC for pause\n";
 
     /*Just sets the level based on the level provided to the function. Also
     sets the player X and Y, and the enemy type on that map*/
@@ -257,6 +258,10 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
                 playerX--;
                 map = newMap;
             }
+        }
+
+        if(GetAsyncKeyState(VK_ESCAPE)){
+            pauseMenu(ui, player);
         }
 
         if(GetAsyncKeyState(0x49)){

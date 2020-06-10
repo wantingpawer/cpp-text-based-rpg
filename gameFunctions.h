@@ -337,4 +337,50 @@ void loadGame(gameInterface ui){
     }
 }
 
+void pauseMenu(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    std::cout << "============\n"
+              << "Un-Named RPG\n"
+              << "============\n"
+              << "\nThere isn't much point to this, is there?"
+              << "\n1) Start new game"
+              << "\n2) Load existing game"
+              << "\n3) Question your existence"
+              << "\n4) View your inventory"
+              << "\n5) Escape the pause menu"
+              << std::endl;
+    int input;
+    bool isPaused = true;
+    while(isPaused){
+        std::cin >> input;
+
+        //Ignore any errors and ignore 100 characters until a newline
+        std::cin.clear();
+        std::cin.ignore(100, '\n');
+
+        switch(input){
+        case 1:
+            start(ui);
+            break;
+
+        case 2:
+            loadGame(ui);
+            break;
+
+        case 3:
+            std::cout << "Don't we all?" << std::endl;
+            break;
+
+        case 4:
+            selectInventoryItem(player);
+            break;
+
+        case 5:
+            isPaused = false;
+            break;
+        }
+    }
+    pause(true);
+}
+
 #endif // GAMEFUNCTIONS
