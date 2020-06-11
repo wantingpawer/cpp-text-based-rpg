@@ -35,6 +35,16 @@ inline void MOVSay(std::string msg, int wait){
     sleep(wait);
 }
 
+inline void NPCSay(std::string npcName, std::string msg){
+    std::cout << npcName << ": " << msg << std::endl;
+    sleep(2);
+}
+
+inline void NPCSay(std::string npcName, std::string msg, int wait){
+    std::cout << npcName << ": " << msg << std::endl;
+    sleep(wait);
+}
+
 /*
 All of these functions just make it so that there isn't a bunch of dialogue and stuff
 covering the code which handles the logic. It's here where everything in between dialogue
@@ -259,4 +269,63 @@ void theGrandEscape(gameInterface ui, playableCharacter *player){
     MOVSay("Oh, there's also a sea of dragon eggs to get rid of");
 }
 
+void theMeetUp(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    MOVSay("We're going to meet up with one of my close friends");
+    playerSay(player, "So you aren't gonna comment on the thing that just happened?");
+    MOVSay("Thing that what happened?");
+    playerSay(player, "You know, the whole baby dragon thing");
+    MOVSay("Oh yeah, that thing. What about it?");
+    playerSay(player, "Okay, never mind. Who are we meeting");
+    MOVSay("A close friend of mine");
+    playerSay(player, "Anything significant about this person?");
+    MOVSay("Nope, not really");
+    playerSay(player, "Why are we meeting your friend?");
+    MOVSay("I'm lonely");
+    playerSay(player, "But... You're a disembodied voice, do you even have feelings?");
+    MOVSay("Yeah, I do");
+    playerSay(player, "But can't you just go meet your friend on your own");
+    MOVSay("I can");
+    playerSay(player, "So why drag me along?");
+    MOVSay("Because I can");
+    playerSay(player, "...");
+    MOVSay("Anyways we're here");
+    playerSay(player, "We didn't move");
+    MOVSay("Minor details, anyways, here's _kotak");
+    NPCSay("_kotak", "Hi!");
+    playerSay(player, "Where the hell did you come from?");
+    NPCSay("_kotak", "Earth");
+    MOVSay("I think you meant uhh...");
+    MOVSay("You're still on earth. Right _kotak?");
+    NPCSay("_kotak", "Oh, yeah, of course");
+    playerSay(player, "So you're not a disembodied voice like Mysterious Ominous Voice?");
+    NPCSay("_kotak", "You didn't tell him your name?");
+    MOVSay("What name?");
+    NPCSay("_kotak", "Oh, of course");
+    playerSay(player, "I'm very confused, who even are you?");
+    MOVSay("_kotak is very epic and is the only person to have killed *the dragon*");
+    playerSay(player, "Wait, the dragon is dead?");
+    MOVSay("Yeah, but it respawns like every 10 minutes");
+    playerSay(player, "What's the point of me killing it then?");
+    MOVSay("It's entertaining for me and _kotak to watch");
+    NPCSay("_kotak", "Yeah");
+    playerSay(player, "Okay anyways, where even are we?");
+    NPCSay("_kotak", "You're here to kill a bunch of things whilst I watch");
+    playerSay(player, "Why?");
+    NPCSay("_kotak", "So I can determine if you're a true dragon slayer");
+    playerSay(player, "But... why don't you kill the dragon again?");
+    NPCSay("_kotak", "Because I already have");
+    playerSay(player, "So you're best suited for it");
+    NPCSay("_kotak", "No, I'm best suited to watching someone else suffer to kill *the dragon*");
+    MOVSay("Sorry to interrupt, but here is the bridge I was talking about!");
+    playerSay(player, "What bri... Oh yeah...");
+    MOVSay("See, I told you it'll be here!");
+    playerSay(player, "Wait, am I not supposed to prove I can kill the dragon first?");
+    NPCSay("_kotak", "Oh, yeah I'll bring the enemies");
+    playerSay(player, "What?");
+    MOVSay("Have fun!");
+    NPCSay("_kotak", "I'll watch from a distance!");
+    MOVSay("Also take this max heal potion, you might need it!");
+    player->inventory.maxHeal += 1;
+}
 #endif // DIALOGUE

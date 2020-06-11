@@ -70,17 +70,19 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
     int playerX, playerY;
     enemy onHitX;
     std::string key = "\nKEY:\nO = Player\n# = Wall\nX = Enemy\n";
-    std::string controls = "Controls:\nWASD to move\ni for inventory\np to save\nESC for pause\n";
+    std::string controls = "Controls:\nWASD to move\ni for inventory\np to save\nESC to pause";
 
     /*Just sets the level based on the level provided to the function. Also
     sets the player X and Y, and the enemy type on that map*/
 
     //This switch block is for adding things to key and control and stuff
     switch(level){
-        case 3:
-            key += "H = Health Stop\n";
-        case 5:
+        case 8 ... 9:
+            key += "K = _kotak\n";
+        case 5 ... 7:
             key += "S = Shop\n";
+        case 3 ... 4:
+            key += "H = Health Stop\n";
     }
 
     switch(level){
@@ -192,6 +194,22 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             map[9] = "###################";
             playerX = 1; playerY = 8;
             onHitX.setAttributes("Dragon Eggs", 3, -1, 0, 5, 1);
+            break;
+
+        case 8:
+            theMeetUp(ui, player);
+            map[0] = "###############D###";
+            map[1] = "#                 #";
+            map[2] = "########XXX########";
+            map[3] = "###    #   #      #";
+            map[4] = "#K#    #XXX#      #";
+            map[5] = "###    #   #      #";
+            map[6] = "#      #XXX#      #";
+            map[7] = "########   ########";
+            map[8] = "#O                #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("Meaner test dummies", 100, 4, 20, 100, 7);
             break;
 
         default:

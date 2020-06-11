@@ -38,4 +38,3 @@
 #include "gameFunctions.h"
 
 #endif // COMMON
-
