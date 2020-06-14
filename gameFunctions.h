@@ -212,7 +212,7 @@ inline int startBattle(enemy opponent, playableCharacter *player, gameInterface 
 std::array<std::string, 10> handleMove(int x, int y, std::array<std::string, 10> map, int direction,
                                        enemy onHitX, playableCharacter *player, gameInterface ui, int level){
     //basically, if you hit a wall, do nothing, if you hit a door, load map, if you hit an enemy, battle
-    if(map[y][x] == '#') return map;
+    if(map[y][x] == '#' || map[y][x] == 'K') return map;
     else if(map[y][x] == 'D') displayMap(++level, player, ui);
     else if(map[y][x] == 'X') {
         int won = startBattle(onHitX, player, ui);

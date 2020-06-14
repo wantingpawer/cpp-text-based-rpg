@@ -328,4 +328,20 @@ void theMeetUp(gameInterface ui, playableCharacter *player){
     MOVSay("Also take this max heal potion, you might need it!");
     player->inventory.maxHeal += 1;
 }
+
+void theRealBattlePreparation(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    NPCSay("_kotak", "Good job, now we can go into a real battle!");
+    playerSay(player, "Wait, a real battle? What do you mean?");
+    MOVSay("We're going to get you healed up and stuff");
+    NPCSay("_kotak", "And then we're going to throw you into a pit of very angry enemies");
+    MOVSay("And we'll hope you don't die");
+    playerSay(player, "What happens if I do die?");
+    MOVSay("Well, we'll have to replace you with one of the 20,000,000 other people we have kidnapped");
+    playerSay(player, "I'm just not gonna question that");
+    NPCSay("_kotak", "Like a true to-be dragon slayer!");
+}
+
+//Note to self: add __CLEARSCREENPROMPTLESS() to beginning of stuff
+
 #endif // DIALOGUE
