@@ -1,5 +1,6 @@
 #ifndef OSDEPENDENT
 #define OSDEPENDENT
+#include "dialogue.h"
 
 //functions from other files
 void selectInventoryItem(playableCharacter *player);
@@ -16,13 +17,13 @@ based on what operating system used, since they're different
 for whatever reason*/
 inline void clearScreen(){
 
-    #ifdef WINDOWS
+    #ifdef _WIN32
 
     system("PAUSE");
     system("CLS");
 
-    #endif // WINDOWS
-    #ifdef LINUX
+    #endif // _WIN32
+    #ifdef __linux__
 
     //Cont is just a variable that'll be used for getline()
     std::string cont;
@@ -35,7 +36,7 @@ inline void clearScreen(){
 
     system("clear");
 
-    #endif // LINUX
+    #endif // __linux__
 }
 
 /*This looks surprisingly cryptic for what it is. Basically just pauses the execution until a key is pressed,
@@ -43,24 +44,24 @@ and the boolean parameter is just to specify whether you want a prompt to show u
 inline void pause(bool showPromp){
 
     if(showPromp){
-        #ifdef WINDOWS
+        #ifdef _WIN32
         system("PAUSE");
-        #endif //WINDOWS
-        #ifdef LINUX
+        #endif //_WIN32
+        #ifdef __linux__
         std::cout << "Press enter to continue..." << std::endl;
-        #endif // LINUX
+        #endif // __linux__
     } else {
-        #ifdef WINDOWS
+        #ifdef _WIN32
         system("PAUSE > NUL");
-        #endif // WINDOWS
+        #endif // __linux__
     }
 
-    #ifdef LINUX
+    #ifdef __linux__
     std::string cont;
     std::cin.clear();
     std::cin.ignore(1);
     std::getline(std::cin, cont);
-    #endif // LINUX
+    #endif // __linux__
 }
 
 void displayMap(int level, playableCharacter *player, gameInterface ui){
@@ -244,7 +245,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
 
     //I might eventually have something that turns this off (ignore this if I already have)
     bool running = true;
-    #ifdef WINDOWS
+    #ifdef _WIN32
 
     while(running == true){
         //prints out the map and information about the player
@@ -315,8 +316,8 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
         }
     }
 
-    #endif // WINDOWS
-    #ifdef LINUX
+    #endif // _WIN32
+    #ifdef __linux__
 
         while(running == true){
         //prints out the map
@@ -361,7 +362,7 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             selectInventoryItem(player);
         }
 
-    #endif // LINUX
+    #endif // __linux__
 }
 
 #endif // OSDEPENDENT

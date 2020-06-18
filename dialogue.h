@@ -1,5 +1,6 @@
 #ifndef DIALOGUE
 #define DIALOGUE
+#include "interface.h"
 
 //From other files
 inline void clearScreen();

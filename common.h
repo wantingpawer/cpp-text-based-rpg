@@ -14,27 +14,27 @@
 
 //#define NOSLEEP
 //#define DEBUG
-#define WINDOWS
-//#define LINUX
 
 #define __BEGINNINGLEVEL 1
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #define __CLEARSCREENPROMPTLESS(){system("CLS");} //Just a macro to clear the screen depending on the platform
-#elif LINUX
+#elif __linux__
 #define __CLEARSCREENPROMPTLESS(){system("clear");}
-#endif // WINDOWS
+#endif // _WIN32
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include "windows.h"
-#endif // WINDOWS
+#endif // _WIN32
 
-#include "classDefinitions.h"
+#include "attacks.cpp"
+#include "entities.cpp"
+#include "interface.cpp"
+#include "attacks.h"
+#include "entities.h"
+#include "interface.h"
 #include "dialogue.h"
 #include "OSdependent.h"
-#include "interface.h"
-#include "entities.h"
-#include "attacks.h"
 #include "gameFunctions.h"
 
 #endif // COMMON
