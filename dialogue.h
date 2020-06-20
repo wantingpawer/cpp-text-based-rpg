@@ -343,6 +343,16 @@ void theRealBattlePreparation(gameInterface ui, playableCharacter *player){
     NPCSay("_kotak", "Like a true to-be dragon slayer!");
 }
 
+void theRealBattle(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    NPCSay("_kotak", "Here's the real battle now!");
+    MOVSay("Yeah, the pit of very angry enemies!");
+    NPCSay("_kotak", "Hope you don't die!");
+    playerSay(player, "Why are you all ending your sentences with exclamation marks?");
+    MOVSay("To emphasise our excitement!");
+    playerSay(player, "Excitement for my death?");
+    NPCSay("_kotak", "Yeah!");
+}
 //Note to self: add __CLEARSCREENPROMPTLESS() to beginning of stuff
 
 #endif // DIALOGUE

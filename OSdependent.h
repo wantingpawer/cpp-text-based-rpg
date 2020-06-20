@@ -229,6 +229,22 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             onHitX.setAttributes("Even meaner test dummies", 150, 8, 30, 120, 10);
             break;
 
+        case 10:
+            theRealBattle(ui, player);
+            map[0] = "###############D###";
+            map[1] = "#             # # #";
+            map[2] = "# #############X# #";
+            map[3] = "# #X X X  X  X  # #";
+            map[4] = "# # X   X  X   X# #";
+            map[5] = "# #X  X  X   X  # #";
+            map[6] = "# # X   X  X  XX# #";
+            map[7] = "###X############# #";
+            map[8] = "#O  #             #";
+            map[9] = "###################";
+            playerX = 1; playerY = 8;
+            onHitX.setAttributes("Very Angry Enemies", 200, 10, 35, 130, 12);
+            break;
+
         default:
             map[0] = "============";
             map[1] = "YOU";
