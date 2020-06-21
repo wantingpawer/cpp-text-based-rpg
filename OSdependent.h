@@ -245,6 +245,23 @@ void displayMap(int level, playableCharacter *player, gameInterface ui){
             onHitX.setAttributes("Very Angry Enemies", 200, 10, 35, 130, 12);
             break;
 
+        case 11:
+            theMugHouse(ui, player);
+            map[0] = "       #D##        ";
+            map[1] = "     ###  ###      ";
+            map[2] = "  ####BB#   ####   ";
+            map[3] = "### BBBB###    ### ";
+            map[4] = "#BBBB B  BB#     # ";
+            map[5] = "#BBBBB BB###    H# ";
+            map[6] = "### BBB B#     ### ";
+            map[7] = "  #### B#   ####   ";
+            map[8] = "     ###KO###      ";
+            map[9] = "       ####        ";
+            playerX = 9; playerY = 8;
+            onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
+            key += "B = bakugan\n";
+            break;
+
         default:
             map[0] = "============";
             map[1] = "YOU";

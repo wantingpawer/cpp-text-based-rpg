@@ -350,37 +350,38 @@ void pauseMenu(gameInterface ui, playableCharacter *player){
               << "\n5) Escape the pause menu"
               << std::endl;
     int input;
-    bool isPaused = true;
-    while(isPaused){
-        std::cin >> input;
+    std::cin >> input;
 
-        //Ignore any errors and ignore 100 characters until a newline
-        std::cin.clear();
-        std::cin.ignore(100, '\n');
+    //Ignore any errors and ignore 100 characters until a newline
+    std::cin.clear();
+    std::cin.ignore(100, '\n');
 
-        switch(input){
-        case 1:
-            start(ui);
-            break;
+    switch(input){
+    case 1:
+        start(ui);
+        pauseMenu(ui, player);
+        break;
 
-        case 2:
-            loadGame(ui);
-            break;
+    case 2:
+        loadGame(ui);
+        pauseMenu(ui, player);
+        break;
 
-        case 3:
-            std::cout << "Don't we all?" << std::endl;
-            break;
+    case 3:
+        std::cout << "Don't we all?" << std::endl;
+        sleep(5);
+        pauseMenu(ui, player);
+        break;
 
-        case 4:
-            selectInventoryItem(player);
-            break;
+    case 4:
+        selectInventoryItem(player);
+        pauseMenu(ui, player);
+        break;
 
-        case 5:
-            isPaused = false;
-            break;
-        }
+    case 5:
+        pause(true);
+        break;
     }
-    pause(true);
 }
 
 #endif // GAMEFUNCTIONS

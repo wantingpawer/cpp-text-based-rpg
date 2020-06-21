@@ -353,6 +353,24 @@ void theRealBattle(gameInterface ui, playableCharacter *player){
     playerSay(player, "Excitement for my death?");
     NPCSay("_kotak", "Yeah!");
 }
+
+void theMugHouse(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS()
+    NPCSay("_kotak", "Well done, you survived!");
+    playerSay(player, "Thanks, I guess?");
+    MOVSay("Let's celebrate by looking at _kotak's bakugan collection");
+    playerSay(player, "Her what?");
+    NPCSay("_kotak", "My bakugan collection");
+    playerSay(player, "Why do you have a bakugan collection?");
+    NPCSay("_kotak", "Are you disrespecting bakugan?");
+    MOVSay("That's deserving of some punishment");
+    playerSay(player, "Oh, sorry, I didn't mean to disrespect your bakugan");
+    NPCSay("_kotak", "It's fine I guess");
+    playerSay(player, "Wait... that looks like a mug");
+    NPCSay("_kotak", "That's because it is");
+    playerSay(player, "Don't worry, I won't disrespect your housing choices too");
+    NPCSay("_kotak", "You're learning!");
+}
 //Note to self: add __CLEARSCREENPROMPTLESS() to beginning of stuff
 
 #endif // DIALOGUE
