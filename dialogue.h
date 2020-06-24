@@ -2,49 +2,12 @@
 #define DIALOGUE
 #include "interface.h"
 
+//This file contains all the functions such as sleep and the talking stuff used here
+#include "dialogueFunctions.h"
+
 //From other files
 inline void clearScreen();
 void displayMap(int level, playableCharacter* player, gameInterface ui);
-
-//Playersay, MOVSay and sleep are just here to make the code look cleaner
-inline void sleep(int duration){
-    #ifndef NOSLEEP
-
-    std::chrono::seconds wait(duration);
-    std::this_thread::sleep_for(wait);
-
-    #endif // NOSLEEP
-}
-
-inline void playerSay(playableCharacter *player, std::string msg){
-    std::cout << player->getName() << ": " << msg << std::endl;
-    sleep(2);
-}
-
-inline void playerSay(playableCharacter *player, std::string msg, int wait){
-    std::cout << player->getName() << ": " << msg << std::endl;
-    sleep(wait);
-}
-
-inline void MOVSay(std::string msg){
-    std::cout << "Mysterious Ominous Voice: " << msg << std::endl;
-    sleep(2);
-}
-
-inline void MOVSay(std::string msg, int wait){
-    std::cout << "Mysterious Ominous Voice: " << msg << std::endl;
-    sleep(wait);
-}
-
-inline void NPCSay(std::string npcName, std::string msg){
-    std::cout << npcName << ": " << msg << std::endl;
-    sleep(2);
-}
-
-inline void NPCSay(std::string npcName, std::string msg, int wait){
-    std::cout << npcName << ": " << msg << std::endl;
-    sleep(wait);
-}
 
 /*
 All of these functions just make it so that there isn't a bunch of dialogue and stuff
@@ -371,6 +334,26 @@ void theMugHouse(gameInterface ui, playableCharacter *player){
     playerSay(player, "Don't worry, I won't disrespect your housing choices too");
     NPCSay("_kotak", "You're learning!");
 }
-//Note to self: add __CLEARSCREENPROMPTLESS() to beginning of stuff
+
+void howManyTowns(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    playerSay(player, "So where are we going now?");
+    NPCSay("_kotak", "We're going to another town");
+    MOVSay("Yeah, another town!");
+    playerSay(player, "How many towns are there?");
+    NPCSay("_kotak", "We managed to fit quite a few on the uhhh");
+    playerSay(player, "On the..?");
+    MOVSay("On the ground");
+    playerSay(player, "So you created the towns?");
+    MOVSay("What, no");
+    NPCSay("_kotak", "We didn't make them, we just fit them onto the map");
+    playerSay(player, "But... that doesn't make any sense?");
+    MOVSay("I'm a mysterious ominous voice, literally nothing here makes sense");
+    NPCSay("_kotak", "Besides, we have to get rid of some WALLs in the way first");
+    playerSay(player, "But... Can't you just do that? It's not like I'll die to a WALL");
+    MOVSay("We don't know that");
+    NPCSay("_kotak", "You can think of it as a test of your patience");
+}
+//Note to self: add __CLEARSCREENPROMPTLESS(); to beginning of stuff
 
 #endif // DIALOGUE
