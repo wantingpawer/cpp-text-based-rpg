@@ -354,6 +354,27 @@ void howManyTowns(gameInterface ui, playableCharacter *player){
     MOVSay("We don't know that");
     NPCSay("_kotak", "You can think of it as a test of your patience");
 }
+
+void isntThisTheSame(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    playerSay(player, "Isn't this exactly the same as the first town?");
+    MOVSay("Yeah, it is");
+    playerSay(player, "But... What's the point of coming here?");
+    NPCSay("_kotak", "To stretch out the length of this game");
+    playerSay(player, "Game?");
+    MOVSay("There's also a store which opened up here");
+    playerSay(player, "But... there were plenty of other stores");
+    playerSay(player, "Wait, you just changed the subject!");
+}
+
+void DRAGON(gameInterface ui, playableCharacter *player){
+    __CLEARSCREENPROMPTLESS();
+    playerSay(player, "Are we going to the next same place as before?");
+    MOVSay("Nope, we're heading for the dragon!");
+    NPCSay("_kotak", "YESS THE DRAGON!!!");
+    playerSay(player, "But this is too early!");
+    MOVSay("It's never too early!");
+}
 //Note to self: add __CLEARSCREENPROMPTLESS(); to beginning of stuff
 
 #endif // DIALOGUE

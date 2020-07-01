@@ -192,6 +192,38 @@ switch(level){
         onHitX.setAttributes("WALL", 250, -10, 0, 100, 0.5);
         break;
 
+    case 13:
+        isntThisTheSame(ui, player);
+        map[0] = "###############D###";
+        map[1] = "#                 #";
+        map[2] = "# #####    ###### #";
+        map[3] = "# #   H    S    # #";
+        map[4] = "# #####    ###### #";
+        map[5] = "# #   #    #  #   #";
+        map[6] = "# #####    #  #   #";
+        map[7] = "#         K####   #";
+        map[8] = "#O                #";
+        map[9] = "###################";
+        playerX = 1; playerY = 8;
+        onHitX.setAttributes("How'd you even get here?", 9999999, 9999999, 9999999, -99999, -99999);
+        break;
+
+    case 14:
+        DRAGON(ui, player);
+        map[0] = "###################";
+        map[1] = "#                 #";
+        map[2] = "####              #";
+        map[3] = "D  X              #";
+        map[4] = "####              #";
+        map[5] = "#                 #";
+        map[6] = "########  #########";
+        map[7] = "       #  #        ";
+        map[8] = "       # O#        ";
+        map[9] = "       ####        ";
+        playerX = 9; playerY = 8;
+        onHitX.setAttributes("DRAGON!!!", 550, 25, 45, 10000, 1000);
+        break;
+
     default:
         map[0] = "============";
         map[1] = "YOU";
